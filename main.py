@@ -11,6 +11,7 @@ from panda3d.core import Point3 ,WindowProperties, CollisionRay , CollisionNode 
 from direct.gui.DirectGui import *
 from pandac.PandaModules import BitMask32
 
+from game.monde import Modele
 
 
 class MyApp(ShowBase):
@@ -21,14 +22,12 @@ class MyApp(ShowBase):
 		props = WindowProperties()
 		props.setCursorHidden(True)
 		base.win.requestProperties(props)
+		
+		base.cTrav = CollisionTraverser()
+		base.cTrav.setRespectPrevTransform(1)
 
-		self.scene = self.loader.loadModel("design/scene.gltf")
+		self.scene = Modele()
 
-		self.scene.setTwoSided(True)
-
-		self.scene.reparentTo(self.render)
-
-		self.scene.setPos(-8, 42, 0)
 
 		self.pandaActor = NodePath('pandaActor')
 
@@ -52,17 +51,17 @@ class MyApp(ShowBase):
 
 		# COLLISION ----------------------------------
 
-		self.scene.setCollideMask(BitMask32.allOn()) 				# IMPORTANT
-		self.pandaActor.setCollideMask(BitMask32.allOff())
+ 				# IMPORTANT
 
-		base.cTrav = CollisionTraverser()
-		base.cTrav.setRespectPrevTransform(1)
+
 
 
 		self.footRay = CollisionRay(0, 0, 1, 0, 0, -1)
 		self.playerFootRay = self.pandaActor.attachNewNode(CollisionNode("playerFootCollision"))
 		self.playerFootRay.node().addSolid(self.footRay)
-		self.playerFootRay.node().setIntoCollideMask(0)
+		
+
+		self.playerFootRay.node().setFromCollideMask(1)
 
 		self.lifter = CollisionHandlerFloor()
 		self.lifter.addCollider(self.playerFootRay, self.pandaActor)
