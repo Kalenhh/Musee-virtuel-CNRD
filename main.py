@@ -28,6 +28,9 @@ class MyApp(ShowBase):
 
 		self.scene = Modele()
 
+		self.obj = loader.loadModel("design/tableau.gltf")
+		self.obj.reparentTo(render)
+
 
 		self.pandaActor = NodePath('pandaActor')
 
