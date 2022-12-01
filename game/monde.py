@@ -10,7 +10,7 @@ class Modele :
 	"""
 	def __init__(self) :
 
-		self.scene = loader.loadModel("design/scene.gltf")
+		self.scene = loader.loadModel("design/test.gltf")
 
 		self.scene.setTwoSided(True)
 		self.scene.setScale(2)
