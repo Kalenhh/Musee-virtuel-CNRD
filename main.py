@@ -12,6 +12,7 @@ from direct.gui.DirectGui import *
 from pandac.PandaModules import BitMask32
 
 from game.monde import Modele
+from game.guicontrol import hide_mouse
 
 
 class MyApp(ShowBase):
@@ -19,9 +20,9 @@ class MyApp(ShowBase):
 		ShowBase.__init__(self)
 
 		base.disableMouse()
-		props = WindowProperties()
-		props.setCursorHidden(True)
-		base.win.requestProperties(props)
+
+		hide_mouse(True)
+
 		
 		base.cTrav = CollisionTraverser()
 		base.cTrav.setRespectPrevTransform(1)
@@ -49,11 +50,9 @@ class MyApp(ShowBase):
 
 		self.camLens.setFov(80)
 
+		base.setBackgroundColor(r=100,g=100,b=250,a=0.5)
+
 		# COLLISION ----------------------------------
-
- 				# IMPORTANT
-
-
 
 
 		self.footRay = CollisionRay(0, 0, 1, 0, 0, -1)
@@ -83,8 +82,6 @@ class MyApp(ShowBase):
 
 
 	def move(self,task) :
-
-		print(self.pandaActor.getZ(),self.panda.getZ())
 
 		speed = 0.3
 		camera_sensi = 25
@@ -122,26 +119,35 @@ class MyApp(ShowBase):
 		
 		x,y = x*camera_sensi,y*camera_sensi
 
-		self.camera.setPos(self.pandaActor.getX(),self.pandaActor.getY(),self.pandaActor.getZ()+3.5)
-		
+		print(x,y,self.camera.getH(),self.camera.getP())
 		self.camera.setH(self.camera.getH()-x)
+		
+		getp = self.camera.getP() + y
+		if getp > (-60) and getp < 90 :
+			self.camera.setP(getp)
+
+		self.camera.setPos(self.pandaActor.getX(),self.pandaActor.getY(),self.pandaActor.getZ()+3.5)
 		self.pandaActor.setH(self.camera.getH()-180)
-
-		self.camera.setP(self.camera.getP()+y)
-
 		return Task.cont
 
+	
 	def closer(self) :
+		"""
+		Fermer le menu
+		"""
 		self.b.destroy()
 		self.bert.destroy()
 		self.taskMgr.add(self.move,'move')
 		self.taskMgr.add(self.pause_menu,'pause_menu')
-		props = WindowProperties()
-		props.setCursorHidden(True)
-		base.win.requestProperties(props)
+		
+		hide_mouse(True)
+
 		return
 
 	def destruire(self) :
+		"""
+		Fermer l'app
+		"""
 		self.finalizeExit()
 
 
@@ -164,5 +170,7 @@ class MyApp(ShowBase):
 
 		return Task.cont
 
-app = MyApp()
+
+
+app = MyApp()	# Main object
 app.run()

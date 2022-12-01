@@ -4,7 +4,10 @@
 from pandac.PandaModules import BitMask32
 
 
-class Modele : 
+class Modele :
+	"""
+	Classe de définition du monde
+	"""
 	def __init__(self) :
 
 		self.scene = loader.loadModel("design/scene.gltf")
