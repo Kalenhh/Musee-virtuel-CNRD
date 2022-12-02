@@ -7,7 +7,7 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
-from panda3d.core import Point3 ,WindowProperties, CollisionRay , CollisionNode , CollisionHandlerFloor , CollisionTraverser , NodePath
+from panda3d.core import Point3 ,WindowProperties, CollisionHandlerQueue, CollisionSegment, CollisionRay , CollisionNode , CollisionHandlerFloor , CollisionTraverser , NodePath
 from direct.gui.DirectGui import *
 from pandac.PandaModules import BitMask32
 
@@ -50,6 +50,7 @@ class MyApp(ShowBase):
 
 		self.taskMgr.add(self.move,'move')
 		self.taskMgr.add(self.pause_menu,'pause_menu')
+		self.taskMgr.add(self.pickertask,'pickertask')
 
 		self.camLens.setFov(80)
 
@@ -57,31 +58,65 @@ class MyApp(ShowBase):
 
 		# COLLISION ----------------------------------
 
+		if True :
+			self.footRay = CollisionRay(0, 0, 1, 0, 0, -1)
+			self.playerFootRay = self.pandaActor.attachNewNode(CollisionNode("playerFootCollision"))
+			self.playerFootRay.node().addSolid(self.footRay)
+			
 
-		self.footRay = CollisionRay(0, 0, 1, 0, 0, -1)
-		self.playerFootRay = self.pandaActor.attachNewNode(CollisionNode("playerFootCollision"))
-		self.playerFootRay.node().addSolid(self.footRay)
-		
+			self.playerFootRay.node().setFromCollideMask(1)
 
-		self.playerFootRay.node().setFromCollideMask(1)
-
-		self.lifter = CollisionHandlerFloor()
-		self.lifter.addCollider(self.playerFootRay, self.pandaActor)
-		self.lifter.setOffset(1.0)
-		self.lifter.setMaxVelocity(5.0)
-		self.lifter.setReach(1.0)
-
-
-		base.cTrav.addCollider(self.playerFootRay, self.lifter)
+			self.lifter = CollisionHandlerFloor()
+			self.lifter.addCollider(self.playerFootRay, self.pandaActor)
+			self.lifter.setOffset(1.0)
+			self.lifter.setMaxVelocity(5.0)
+			self.lifter.setReach(1.0)
 
 
-		#-----------------------------------------------------------------------------------------------
+			base.cTrav.addCollider(self.playerFootRay, self.lifter)
+
+			self.myHandler = CollisionHandlerQueue()
+
+			self.pickerNode = CollisionNode('mouseRay')
+			self.pickerNP = self.camera.attachNewNode(self.pickerNode)
+			self.pickerRay = CollisionSegment(1,0,0,2,0,0)
+			self.pickerNode.addSolid(self.pickerRay)
+
+			self.pickerRay.setPointB(x=0,y=0,z=10)
+			self.obj.setPos(x=0,y=0,z=10)
+			
+			base.cTrav.addCollider(self.pickerNP, self.myHandler)
+
+			self.pickerNP.show()  # Collision
+
+###
+	"""	def myFunction():
+		    mpos = base.mouseWatcherNode.getMouse()
+		    pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
+		    myTraverser.traverse(render)
+		    # Assume for simplicity's sake that myHandler is a CollisionHandlerQueue.
+		    if myHandler.getNumEntries() > 0:
+		        # This is so we get the closest object.
+		        myHandler.sortEntries()
+		        pickedObj = myHandler.getEntry(0).getIntoNodePath()
+		        pickedObj = pickedObj.findNetTag('myObjectTag')
+		        if not pickedObj.isEmpty():
+		            handlePickedObject(pickedObj)"""
+
+###
+	def pickertask(self,task) :
+
+		self.pickerRay.setPointA(self.pandaActor.getPos())  # FAUT REGLER CETTE DIABLERIE
+
+		if self.myHandler.getNumEntries() > 0 :
+			print("                                  OUI")
+		else :
+			print("NON")
+
+		#print(self.pickerRay.getPointA(),self.pickerRay.getPointB())
 
 
-		#####
-
-
-		# -------------------------------------------------
+		return Task.cont
 
 
 	def move(self,task) :
@@ -122,7 +157,6 @@ class MyApp(ShowBase):
 		
 		x,y = x*camera_sensi,y*camera_sensi
 
-		print(x,y,self.camera.getH(),self.camera.getP())
 		self.camera.setH(self.camera.getH()-x)
 		
 		getp = self.camera.getP() + y
