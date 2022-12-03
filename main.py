@@ -22,15 +22,19 @@ class MyApp(ShowBase):
 		base.disableMouse()
 
 		hide_mouse(True)
-
 		
 		base.cTrav = CollisionTraverser()
 		base.cTrav.setRespectPrevTransform(1)
 
 		self.scene = Modele()
 
+
+		self.objNP = NodePath('objNP')
+
 		self.obj = loader.loadModel("design/tableau.gltf")
-		self.obj.reparentTo(render)
+		self.obj.reparentTo(self.objNP)
+
+		self.objNP.reparentTo(render)
 
 
 		self.pandaActor = NodePath('pandaActor')
@@ -79,10 +83,13 @@ class MyApp(ShowBase):
 
 			self.pickerNode = CollisionNode('mouseRay')
 			self.pickerNP = self.camera.attachNewNode(self.pickerNode)
-			self.pickerRay = CollisionSegment(1,0,0,2,0,0)
+			self.pickerRay = CollisionSegment()
 			self.pickerNode.addSolid(self.pickerRay)
 
-			self.pickerRay.setPointB(x=0,y=0,z=10)
+			self.pickerNode.setFromCollideMask(2)
+
+			self.obj.setCollideMask(2)
+
 			self.obj.setPos(x=0,y=0,z=10)
 			
 			base.cTrav.addCollider(self.pickerNP, self.myHandler)
@@ -106,12 +113,15 @@ class MyApp(ShowBase):
 ###
 	def pickertask(self,task) :
 
-		self.pickerRay.setPointA(self.pandaActor.getPos())  # FAUT REGLER CETTE DIABLERIE
+		#self.pickerRay.setPointA(self.pandaActor.getPos())  # FAUT REGLER CETTE DIABLERIE
+		#self.pickerRay.setPointB(self.objNP.getPos())
+		self.pickerRay.setFromLens(base.camNode,0,0)		# LAD IABLERIE EST REGLE
+
 
 		if self.myHandler.getNumEntries() > 0 :
-			print("                                  OUI")
+			print("                 coli")
 		else :
-			print("NON")
+			print("non")
 
 		#print(self.pickerRay.getPointA(),self.pickerRay.getPointB())
 
