@@ -7,7 +7,7 @@ from direct.showbase.ShowBase import ShowBase
 from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
-from panda3d.core import Point3 ,WindowProperties, CollisionHandlerQueue, CollisionSegment, CollisionRay , CollisionNode , CollisionHandlerFloor , CollisionTraverser , NodePath
+from panda3d.core import Point3 ,WindowProperties, CollisionSphere, CollisionHandlerQueue, CollisionHandlerPusher, CollisionSegment, CollisionRay , CollisionNode , CollisionHandlerFloor , CollisionTraverser , NodePath
 from direct.gui.DirectGui import *
 from pandac.PandaModules import BitMask32
 
@@ -69,6 +69,7 @@ class MyApp(ShowBase):
 			
 
 			self.playerFootRay.node().setFromCollideMask(1)
+			self.playerFootRay.node().setIntoCollideMask(0)
 
 			self.lifter = CollisionHandlerFloor()
 			self.lifter.addCollider(self.playerFootRay, self.pandaActor)
@@ -78,12 +79,13 @@ class MyApp(ShowBase):
 
 
 			base.cTrav.addCollider(self.playerFootRay, self.lifter)
-
+		# ------------------------------------------------------------------------------------------------------
 			self.myHandler = CollisionHandlerQueue()
 
 			self.pickerNode = CollisionNode('mouseRay')
 			self.pickerNP = self.camera.attachNewNode(self.pickerNode)
-			self.pickerRay = CollisionSegment()
+			self.pickerRay = CollisionSegment(0,0,0,5,0,0)
+			self.pickerNode.setIntoCollideMask(0)
 			self.pickerNode.addSolid(self.pickerRay)
 
 			self.pickerNode.setFromCollideMask(2)
@@ -95,6 +97,21 @@ class MyApp(ShowBase):
 			base.cTrav.addCollider(self.pickerNP, self.myHandler)
 
 			self.pickerNP.show()  # Collision
+			# ---------------------------------------------------------------------------------------------------
+
+			self.pusher = CollisionHandlerPusher()
+
+			self.pandafrom = self.pandaActor.attachNewNode(CollisionNode('pusherNode'))
+			self.pandafrom.node().addSolid(CollisionSphere(0,0,0,0.5))
+
+			self.pandafrom.node().setFromCollideMask(1)
+			self.pandafrom.node().setIntoCollideMask(0)
+
+			self.pusher.addCollider(self.pandafrom,self.pandaActor)
+
+			base.cTrav.addCollider(self.pandafrom,self.pusher)
+
+
 
 ###
 	"""	def myFunction():
@@ -119,7 +136,15 @@ class MyApp(ShowBase):
 
 
 		if self.myHandler.getNumEntries() > 0 :
-			print("                 coli")
+			
+			self.myHandler.sortEntries()
+
+			picked = self.myHandler.getEntry(0)
+			pol = picked.getSurfacePoint(NodePath(base.camera))
+
+
+			if pol[1] < 15 :
+				print("                 coli")
 		else :
 			print("non")
 
