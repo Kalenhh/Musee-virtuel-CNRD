@@ -36,6 +36,14 @@ class MyApp(ShowBase):
 
 		self.objNP.reparentTo(render)
 
+		self.obj.setTag('pickable','tableau')
+
+		self.smiley = loader.loadModel('smiley')
+		self.smiley.reparentTo(render)
+		self.smiley.setTag('pickable','smiley')
+		self.smiley.setPos(5,5,5)
+		
+
 
 		self.pandaActor = NodePath('pandaActor')
 
@@ -59,6 +67,8 @@ class MyApp(ShowBase):
 		self.camLens.setFov(80)
 
 		base.setBackgroundColor(r=100,g=100,b=250,a=0.5)
+
+		self.dict = {'tableau':'ceci est un tableau','scene':'c est le sol'}
 
 		# COLLISION ----------------------------------
 
@@ -85,12 +95,13 @@ class MyApp(ShowBase):
 			self.pickerNode = CollisionNode('mouseRay')
 			self.pickerNP = self.camera.attachNewNode(self.pickerNode)
 			self.pickerRay = CollisionSegment(0,0,0,5,0,0)
-			self.pickerNode.setIntoCollideMask(0)
 			self.pickerNode.addSolid(self.pickerRay)
 
 			self.pickerNode.setFromCollideMask(2)
+			self.pickerNode.setIntoCollideMask(0)
 
 			self.obj.setCollideMask(2)
+			self.smiley.setCollideMask(2)
 
 			self.obj.setPos(x=0,y=0,z=10)
 			
@@ -102,7 +113,7 @@ class MyApp(ShowBase):
 			self.pusher = CollisionHandlerPusher()
 
 			self.pandafrom = self.pandaActor.attachNewNode(CollisionNode('pusherNode'))
-			self.pandafrom.node().addSolid(CollisionSphere(0,0,0,0.5))
+			self.pandafrom.node().addSolid(CollisionSphere(0,0,0,2))
 
 			self.pandafrom.node().setFromCollideMask(1)
 			self.pandafrom.node().setIntoCollideMask(0)
@@ -144,7 +155,10 @@ class MyApp(ShowBase):
 
 
 			if pol[1] < 15 :
-				print("                 coli")
+				for i in self.dict :
+					curr = picked.getIntoNodePath().getNetTag('pickable')
+					
+					print(curr)
 		else :
 			print("non")
 

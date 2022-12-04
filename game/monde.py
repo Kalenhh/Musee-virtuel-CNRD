@@ -16,7 +16,7 @@ class Modele :
 		self.scene.setScale(2)
 
 		self.scene.reparentTo(render)
-		self.scene.setCollideMask(BitMask32(1))
+		self.scene.setCollideMask(1)
 
 		self.scene.setPos(-8, 42, 0)
 
