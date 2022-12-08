@@ -42,6 +42,7 @@ class MyApp(ShowBase):
 		self.smiley.reparentTo(render)
 		self.smiley.setTag('pickable','smiley')
 		self.smiley.setPos(5,5,5)
+		self.smiley.setScale(2)
 		
 
 
@@ -64,87 +65,72 @@ class MyApp(ShowBase):
 		self.taskMgr.add(self.pause_menu,'pause_menu')
 		self.taskMgr.add(self.pickertask,'pickertask')
 
-		self.camLens.setFov(80)
-
 		base.setBackgroundColor(r=100,g=100,b=250,a=0.5)
 
-		self.dict = {'tableau':'ceci est un tableau','scene':'c est le sol'}
+		self.dict = {'tableau':'ceci est un tableau','smiley':'c est un smiley'}
+		self.affiche = False
 
-		# COLLISION ----------------------------------
+# COLLISION ----------------------------------
 
-		if True :
-			self.footRay = CollisionRay(0, 0, 1, 0, 0, -1)
-			self.playerFootRay = self.pandaActor.attachNewNode(CollisionNode("playerFootCollision"))
-			self.playerFootRay.node().addSolid(self.footRay)
-			
+	# Ground Collision -------------------------
+		self.footRay = CollisionRay(0, 0, 1, 0, 0, -1)
+		self.playerFootRay = self.pandaActor.attachNewNode(CollisionNode("playerFootCollision"))
+		self.playerFootRay.node().addSolid(self.footRay)
+		
 
-			self.playerFootRay.node().setFromCollideMask(1)
-			self.playerFootRay.node().setIntoCollideMask(0)
+		self.playerFootRay.node().setFromCollideMask(1)
+		self.playerFootRay.node().setIntoCollideMask(0)
 
-			self.lifter = CollisionHandlerFloor()
-			self.lifter.addCollider(self.playerFootRay, self.pandaActor)
-			self.lifter.setOffset(1.0)
-			self.lifter.setMaxVelocity(5.0)
-			self.lifter.setReach(1.0)
-
-
-			base.cTrav.addCollider(self.playerFootRay, self.lifter)
-		# ------------------------------------------------------------------------------------------------------
-			self.myHandler = CollisionHandlerQueue()
-
-			self.pickerNode = CollisionNode('mouseRay')
-			self.pickerNP = self.camera.attachNewNode(self.pickerNode)
-			self.pickerRay = CollisionSegment(0,0,0,5,0,0)
-			self.pickerNode.addSolid(self.pickerRay)
-
-			self.pickerNode.setFromCollideMask(2)
-			self.pickerNode.setIntoCollideMask(0)
-
-			self.obj.setCollideMask(2)
-			self.smiley.setCollideMask(2)
-
-			self.obj.setPos(x=0,y=0,z=10)
-			
-			base.cTrav.addCollider(self.pickerNP, self.myHandler)
-
-			self.pickerNP.show()  # Collision
-			# ---------------------------------------------------------------------------------------------------
-
-			self.pusher = CollisionHandlerPusher()
-
-			self.pandafrom = self.pandaActor.attachNewNode(CollisionNode('pusherNode'))
-			self.pandafrom.node().addSolid(CollisionSphere(0,0,0,2))
-
-			self.pandafrom.node().setFromCollideMask(1)
-			self.pandafrom.node().setIntoCollideMask(0)
-
-			self.pusher.addCollider(self.pandafrom,self.pandaActor)
-
-			base.cTrav.addCollider(self.pandafrom,self.pusher)
+		self.lifter = CollisionHandlerFloor()
+		self.lifter.addCollider(self.playerFootRay, self.pandaActor)
+		self.lifter.setOffset(1.0)
+		self.lifter.setMaxVelocity(5.0)
+		self.lifter.setReach(1.0)
 
 
+		base.cTrav.addCollider(self.playerFootRay, self.lifter)
 
-###
-	"""	def myFunction():
-		    mpos = base.mouseWatcherNode.getMouse()
-		    pickerRay.setFromLens(base.camNode, mpos.getX(), mpos.getY())
-		    myTraverser.traverse(render)
-		    # Assume for simplicity's sake that myHandler is a CollisionHandlerQueue.
-		    if myHandler.getNumEntries() > 0:
-		        # This is so we get the closest object.
-		        myHandler.sortEntries()
-		        pickedObj = myHandler.getEntry(0).getIntoNodePath()
-		        pickedObj = pickedObj.findNetTag('myObjectTag')
-		        if not pickedObj.isEmpty():
-		            handlePickedObject(pickedObj)"""
+	# Picker Collision --------------------------
 
-###
+		self.myHandler = CollisionHandlerQueue()
+
+		self.pickerNode = CollisionNode('mouseRay')
+		self.pickerNP = self.camera.attachNewNode(self.pickerNode)
+		self.pickerRay = CollisionSegment(0,0,0,5,0,0)
+		self.pickerNode.addSolid(self.pickerRay)
+
+		self.pickerNode.setFromCollideMask(2)
+		self.pickerNode.setIntoCollideMask(0)
+
+		self.obj.setCollideMask(2)
+		self.smiley.setCollideMask(2)
+
+		self.obj.setPos(x=0,y=0,z=10)
+		
+		base.cTrav.addCollider(self.pickerNP, self.myHandler)
+
+	
+	# Pusher Collision -------------------------- 
+
+		self.pusher = CollisionHandlerPusher()
+
+		self.pandafrom = self.pandaActor.attachNewNode(CollisionNode('pusherNode'))
+		self.pandafrom.node().addSolid(CollisionSphere(0,0,0,2))
+
+		self.pandafrom.node().setFromCollideMask(1)
+		self.pandafrom.node().setIntoCollideMask(0)
+
+		self.pusher.addCollider(self.pandafrom,self.pandaActor)
+
+		base.cTrav.addCollider(self.pandafrom,self.pusher)
+
+#-------------------------------------------------
+
 	def pickertask(self,task) :
 
-		#self.pickerRay.setPointA(self.pandaActor.getPos())  # FAUT REGLER CETTE DIABLERIE
-		#self.pickerRay.setPointB(self.objNP.getPos())
-		self.pickerRay.setFromLens(base.camNode,0,0)		# LAD IABLERIE EST REGLE
+		self.pickerRay.setFromLens(base.camNode,0,0)
 
+		is_down = base.mouseWatcherNode.is_button_down
 
 		if self.myHandler.getNumEntries() > 0 :
 			
@@ -155,15 +141,17 @@ class MyApp(ShowBase):
 
 
 			if pol[1] < 15 :
-				for i in self.dict :
-					curr = picked.getIntoNodePath().getNetTag('pickable')
-					
-					print(curr)
+				curr = picked.getIntoNodePath().getNetTag('pickable')
+				print(self.dict[curr],self.affiche)
+
+				if is_down('e') and self.affiche == False :
+					self.texte = OnscreenText(text=self.dict[curr],scale=0.15,pos=(0,0.8,0))
+					self.affiche = True
 		else :
 			print("non")
-
-		#print(self.pickerRay.getPointA(),self.pickerRay.getPointB())
-
+			if self.affiche == True :
+				self.texte.destroy()
+				self.affiche = False
 
 		return Task.cont
 
@@ -175,6 +163,12 @@ class MyApp(ShowBase):
 		jump = 2
 
 		is_down = base.mouseWatcherNode.is_button_down
+
+		self.camLens.setFov(80)
+		if is_down('a') :
+			self.camLens.setFov(40)
+
+
 
 		if is_down('z') :
 
@@ -193,9 +187,6 @@ class MyApp(ShowBase):
 		if is_down('d') :
 			self.pandaActor.setX(   self.pandaActor.getX()-( cos(radians(self.pandaActor.getH()))*speed  )  )
 			self.pandaActor.setY(   self.pandaActor.getY()-( sin(radians(self.pandaActor.getH()))*speed  )  )
-
-		if is_down('j') :
-			self.pandaActor.setZ(10)
 
 		x,y = 0,0
 		if base.mouseWatcherNode.hasMouse():
