@@ -31,12 +31,12 @@ class MyApp(ShowBase):
 
 		self.objNP = NodePath('objNP')
 
-		self.obj = loader.loadModel("design/tableau.gltf")
+		"""self.obj = loader.loadModel("design/tableau.gltf")
 		self.obj.reparentTo(self.objNP)
 
 		self.objNP.reparentTo(render)
 
-		self.obj.setTag('pickable','tableau')
+		self.obj.setTag('pickable','tableau')"""
 
 		self.smiley = loader.loadModel('smiley')
 		self.smiley.reparentTo(render)
@@ -69,6 +69,7 @@ class MyApp(ShowBase):
 
 		self.dict = {'tableau':'ceci est un tableau','smiley':'c est un smiley'}
 		self.affiche = False
+		self.speed = 0.3
 
 # COLLISION ----------------------------------
 
@@ -102,10 +103,8 @@ class MyApp(ShowBase):
 		self.pickerNode.setFromCollideMask(2)
 		self.pickerNode.setIntoCollideMask(0)
 
-		self.obj.setCollideMask(2)
+		"""self.obj.setCollideMask(2)"""
 		self.smiley.setCollideMask(2)
-
-		self.obj.setPos(x=0,y=0,z=10)
 		
 		base.cTrav.addCollider(self.pickerNP, self.myHandler)
 
@@ -158,7 +157,6 @@ class MyApp(ShowBase):
 
 	def move(self,task) :
 
-		speed = 0.3
 		camera_sensi = 25
 		jump = 2
 
@@ -172,21 +170,21 @@ class MyApp(ShowBase):
 
 		if is_down('z') :
 
-			self.pandaActor.setX(   self.pandaActor.getX()+( cos(radians(self.pandaActor.getH()-90))*speed  )  )
-			self.pandaActor.setY(   self.pandaActor.getY()+( sin(radians(self.pandaActor.getH()-90))*speed  )  )
+			self.pandaActor.setX(   self.pandaActor.getX()+( cos(radians(self.pandaActor.getH()-90))*self.speed  )  )
+			self.pandaActor.setY(   self.pandaActor.getY()+( sin(radians(self.pandaActor.getH()-90))*self.speed  )  )
 		
 		if is_down('s') :
 
-			self.pandaActor.setX(   self.pandaActor.getX()-( cos(radians(self.pandaActor.getH()-90))*speed  )  )
-			self.pandaActor.setY(   self.pandaActor.getY()-( sin(radians(self.pandaActor.getH()-90))*speed  )  )
+			self.pandaActor.setX(   self.pandaActor.getX()-( cos(radians(self.pandaActor.getH()-90))*self.speed  )  )
+			self.pandaActor.setY(   self.pandaActor.getY()-( sin(radians(self.pandaActor.getH()-90))*self.speed  )  )
 
 		if is_down('q') :
-			self.pandaActor.setX(   self.pandaActor.getX()+( cos(radians(self.pandaActor.getH()))*speed  )  )
-			self.pandaActor.setY(   self.pandaActor.getY()+( sin(radians(self.pandaActor.getH()))*speed  )  )
+			self.pandaActor.setX(   self.pandaActor.getX()+( cos(radians(self.pandaActor.getH()))*self.speed  )  )
+			self.pandaActor.setY(   self.pandaActor.getY()+( sin(radians(self.pandaActor.getH()))*self.speed  )  )
 
 		if is_down('d') :
-			self.pandaActor.setX(   self.pandaActor.getX()-( cos(radians(self.pandaActor.getH()))*speed  )  )
-			self.pandaActor.setY(   self.pandaActor.getY()-( sin(radians(self.pandaActor.getH()))*speed  )  )
+			self.pandaActor.setX(   self.pandaActor.getX()-( cos(radians(self.pandaActor.getH()))*self.speed  )  )
+			self.pandaActor.setY(   self.pandaActor.getY()-( sin(radians(self.pandaActor.getH()))*self.speed  )  )
 
 		x,y = 0,0
 		if base.mouseWatcherNode.hasMouse():
@@ -208,7 +206,7 @@ class MyApp(ShowBase):
 		return Task.cont
 
 	
-	def closer(self) :
+	def close_menu(self) :
 		"""
 		Fermer le menu
 		"""
@@ -227,20 +225,35 @@ class MyApp(ShowBase):
 		"""
 		self.finalizeExit()
 
+	def config_menu(self) :
+		"""
+		Menu de parametre de configuration ex : vitesse de déplacement , FOV
+		"""
+		self.taskMgr.remove('move')
+		self.taskMgr.remove('pause_menu')
+
+		self.butt = DirectSlider(command=self.change_speed)
+
+	def change_speed(self) :
+		self.speed = self.butt['value']
+
+
 
 	def pause_menu(self,task) :
 
 		is_down = base.mouseWatcherNode.is_button_down
 
 		if is_down('p') :
-			taskMgr.remove('move')
+			self.taskMgr.remove('move')
 			props = WindowProperties()
 			props.setCursorHidden(False)
 			base.win.requestProperties(props)	
 
-			self.b = DirectButton(text='return',command=self.closer,scale=0.1)
+			self.b = DirectButton(text='return',command=self.close_menu,scale=0.1)
 
 			self.bert = DirectButton(text='destroy',command=self.destruire,scale=0.1,pos=(0,0,-0.2))
+
+			self.config_menu_button = DirectButton(text='confi',command=self.config_menu,scale=0.1,pos=(0,0,-0.3))
 
 			self.taskMgr.remove('pause_menu')
 			return Task.cont

@@ -1,1 +1,2 @@
 speed : 1
+fullscreen : False
