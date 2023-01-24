@@ -12,7 +12,7 @@ from direct.gui.DirectGui import *
 from pandac.PandaModules import BitMask32
 
 from game.monde import Modele
-from game.guicontrol import hide_mouse
+from game.guicontrol import hide_mouse , PauseMenu
 
 
 class MyApp(ShowBase):
@@ -65,7 +65,7 @@ class MyApp(ShowBase):
 		self.taskMgr.add(self.pause_menu,'pause_menu')
 		self.taskMgr.add(self.pickertask,'pickertask')
 
-		base.setBackgroundColor(r=100,g=100,b=250,a=0.5)
+		base.setBackgroundColor(r=100,g=100,b=250,a=1)
 
 		self.dict = {'tableau':'ceci est un tableau','smiley':'c est un smiley'}
 		self.affiche = False
@@ -167,7 +167,7 @@ class MyApp(ShowBase):
 			self.camLens.setFov(40)
 
 
-
+	# Mouvement
 		if is_down('z') :
 
 			self.pandaActor.setX(   self.pandaActor.getX()+( cos(radians(self.pandaActor.getH()-90))*self.speed  )  )
@@ -186,6 +186,7 @@ class MyApp(ShowBase):
 			self.pandaActor.setX(   self.pandaActor.getX()-( cos(radians(self.pandaActor.getH()))*self.speed  )  )
 			self.pandaActor.setY(   self.pandaActor.getY()-( sin(radians(self.pandaActor.getH()))*self.speed  )  )
 
+	# -----
 		x,y = 0,0
 		if base.mouseWatcherNode.hasMouse():
 			x = round(base.mouseWatcherNode.getMouseX() , 2 )
@@ -205,34 +206,6 @@ class MyApp(ShowBase):
 		self.pandaActor.setH(self.camera.getH()-180)
 		return Task.cont
 
-	
-	def close_menu(self) :
-		"""
-		Fermer le menu
-		"""
-		self.b.destroy()
-		self.bert.destroy()
-		self.taskMgr.add(self.move,'move')
-		self.taskMgr.add(self.pause_menu,'pause_menu')
-		
-		hide_mouse(True)
-
-		return
-
-	def destruire(self) :
-		"""
-		Fermer l'app
-		"""
-		self.finalizeExit()
-
-	def config_menu(self) :
-		"""
-		Menu de parametre de configuration ex : vitesse de déplacement , FOV
-		"""
-		self.taskMgr.remove('move')
-		self.taskMgr.remove('pause_menu')
-
-		self.butt = DirectSlider(command=self.change_speed)
 
 	def change_speed(self) :
 		self.speed = self.butt['value']
@@ -244,17 +217,11 @@ class MyApp(ShowBase):
 		is_down = base.mouseWatcherNode.is_button_down
 
 		if is_down('p') :
+			hide_mouse(False)
+
+			menu = PauseMenu()
+
 			self.taskMgr.remove('move')
-			props = WindowProperties()
-			props.setCursorHidden(False)
-			base.win.requestProperties(props)	
-
-			self.b = DirectButton(text='return',command=self.close_menu,scale=0.1)
-
-			self.bert = DirectButton(text='destroy',command=self.destruire,scale=0.1,pos=(0,0,-0.2))
-
-			self.config_menu_button = DirectButton(text='confi',command=self.config_menu,scale=0.1,pos=(0,0,-0.3))
-
 			self.taskMgr.remove('pause_menu')
 			return Task.cont
 
