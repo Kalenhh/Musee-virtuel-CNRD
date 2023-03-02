@@ -14,6 +14,26 @@ from game.monde import Modele
 from game.guicontrol import hide_mouse , PauseMenu
 
 
+from tkinter import* 
+from wxpython import*
+
+class Menu() :
+	def __init__(self) :
+		self.app = Tk()
+		self.app.minsize(700,500)
+		frame = Frame(self.app)
+		frame.pack()
+		butt = Button(frame,text="close",command=self.closee)
+		butt.pack()
+
+	def start(self) :
+		self.app.mainloop()
+
+	def closee(self,switch=None) :
+		Raise(switch)
+		self.app.destroy()
+
+
 class MyApp(ShowBase):
 	def __init__(self):
 		ShowBase.__init__(self)
@@ -143,12 +163,12 @@ class MyApp(ShowBase):
 				print(self.dict[curr],self.affiche)
 
 				if is_down('e') and self.affiche == False :
-					self.texte = OnscreenText(text=self.dict[curr],scale=0.15,pos=(0,0.8,0))
+					self.menu = Menu()
+					self.menu.start()
 					self.affiche = True
 		else :
 			print("non")
 			if self.affiche == True :
-				self.texte.destroy()
 				self.affiche = False
 
 		return Task.cont
@@ -228,5 +248,5 @@ class MyApp(ShowBase):
 
 
 
-app = MyApp()	# Main object
-app.run()
+rapp = MyApp()	# Main object
+rapp.run()
