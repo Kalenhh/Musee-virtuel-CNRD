@@ -15,7 +15,7 @@ from game.guicontrol import hide_mouse , PauseMenu
 
 
 from tkinter import* 
-from wxpython import*
+#from wxpython import*
 
 class Menu() :
 	def __init__(self) :
@@ -29,8 +29,7 @@ class Menu() :
 	def start(self) :
 		self.app.mainloop()
 
-	def closee(self,switch=None) :
-		Raise(switch)
+	def closee(self) :
 		self.app.destroy()
 
 
@@ -46,6 +45,9 @@ class MyApp(ShowBase):
 		base.cTrav.setRespectPrevTransform(1)
 
 		self.scene = Modele()
+		wp = WindowProperties() 
+		wp.setFullscreen(True) 
+		base.win.requestProperties(wp)
 
 
 		self.objNP = NodePath('objNP')

@@ -9,10 +9,7 @@ setup(
 		'build_apps':{
 			'gui_apps' :{
 				'musee': 'main.py'
-			},
-
-		'include_patterns' : [
-			'**/*.gltf']
+			}
 		}
 	}
 )
