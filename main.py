@@ -72,8 +72,15 @@ class Myapp(ShowBase) :
 						
 						for o in range(len(formated_text)) :
 
-							self.texte_liste[str(chap_nbr)+str(o)] = OnscreenText(fg = (0,0,255,255),text=formated_text[o],pos=(0,-len(self.texte_liste)/10,0),
+							self.texte_liste[str(chap_nbr)+str(o)] = OnscreenText(	
+																					text=formated_text[o],
+																					pos=(	
+																							0,
+																							-len(self.texte_liste)/10,
+																							0
+																						),
 																					scale= 0.05+int(text[borne1-2])/100)
+							print(self.texte_liste[str(chap_nbr)+str(o)]['frameSize'])
 
 						self.texte_liste[str(chap_nbr)+"n"] = OnscreenText(text="",pos=(0,-len(self.texte_liste)/10,0))
 						borne1 , borne2 = None , None
@@ -125,7 +132,7 @@ class Myapp(ShowBase) :
 		if delta != 0 :
 			for i in self.texte_liste :
 
-				self.texte_liste[i]['pos'] = (0, self.texte_liste[i]['pos'][1]+delta ,0)
+				self.texte_liste[i]['pos'] = (self.texte_liste[i]['pos'][0], self.texte_liste[i]['pos'][1]+delta ,0)
 
 		return Task.cont
 
