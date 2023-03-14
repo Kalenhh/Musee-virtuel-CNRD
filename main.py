@@ -6,7 +6,7 @@ from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.DirectGui import *
-from panda3d.core import VBase4 , NodePath
+from panda3d.core import VBase4 , NodePath , TextNode
 
 from direct.gui.OnscreenText import OnscreenText
 
@@ -20,7 +20,7 @@ class Myapp(ShowBase) :
 		ShowBase.setBackgroundColor(self,r=255,g=255,b=255,a=0.0)
 
 		self.widget = []		# liste de widget ex : bouton , barre , input
-		self.texte_liste = {} 	# Chaque element est une ligne de texte
+		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
 
 		self.taskMgr.add(self.loop,'loop')
 
@@ -70,19 +70,21 @@ class Myapp(ShowBase) :
 						formated_text = self.format(text[borne1:borne2+1])
 						chap_nbr += 1
 						
-						for o in range(len(formated_text)) :
+						if int(text[borne1-2]) > 1 :
+							pos = TextNode.ACenter
+							posx = 0
+						else :
+							pos = TextNode.ALeft
+							posx = -1
 
-							self.texte_liste[str(chap_nbr)+str(o)] = OnscreenText(	
-																					text=formated_text[o],
-																					pos=(	
-																							0,
+						self.texte_liste[str(chap_nbr)] = OnscreenText(	text = formated_text ,
+																					pos = (	posx ,
 																							-len(self.texte_liste)/10,
-																							0
-																						),
-																					scale= 0.05+int(text[borne1-2])/100)
-							print(self.texte_liste[str(chap_nbr)+str(o)]['frameSize'])
+																							0      ) ,
+																					scale = 0.05+int(text[borne1-2])/100 ,
+																					align = pos )
 
-						self.texte_liste[str(chap_nbr)+"n"] = OnscreenText(text="",pos=(0,-len(self.texte_liste)/10,0))
+						self.texte_liste[str(chap_nbr)+"n"] = OnscreenText(text=" ",pos=(0,-len(self.texte_liste)/10,0))
 						borne1 , borne2 = None , None
 
 	def format(self,texte) :
@@ -97,23 +99,25 @@ class Myapp(ShowBase) :
 		"""
 
 		nbr_cara = 70
-		formated_text = []
+		formated_text = ""
 
 		texte = texte.replace('\n',' ')
 
-
-		c = 0
 		i = 0
 		
 		while True :
 			if len(texte) < nbr_cara :
-				formated_text.append(texte)
+				print(formated_text,'\n')
+				formated_text+=texte+"\n"
 				break
-			elif i > nbr_cara and texte[i] == ' ' :
-				formated_text.append(texte[:i])
+			elif i > nbr_cara and texte[i] == ' ' :   # PROBLEME SUR LE FORMATAGE
+				print(formated_text,'\n')
+				formated_text+=texte+"\n"
 				texte = texte[i:]
 				i = 0
 			i += 1
+
+
 
 		return formated_text # liste de ligne de longueur inferieure à 'nbr_cara'
 
@@ -171,7 +175,7 @@ class Myapp(ShowBase) :
 
 		self.widget.append(go_back_button:=DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9)))
 
-		with  open(str(chap_id)+".txt",'r') as chap :
+		with  open(str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
 			self.show(texte)
 
