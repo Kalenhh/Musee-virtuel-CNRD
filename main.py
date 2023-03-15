@@ -67,7 +67,7 @@ class Myapp(ShowBase) :
 						raise Exception("erreur dans le chapitre")
 					else :
 
-						formated_text = text[borne1:borne2+1]
+						formated_text = self.format(text[borne1:borne2+1])
 						chap_nbr += 1
 						
 						if int(text[borne1-2]) > 1 :
@@ -78,17 +78,16 @@ class Myapp(ShowBase) :
 							posx = -1
 
 						self.texte_liste[str(chap_nbr)] = OnscreenText(	text = formated_text ,
-																					pos = (	posx ,
-																							-len(self.texte_liste)/10,
-																							0      ) ,
-																					scale = 0.05+int(text[borne1-2])/100 ,
-																					align = pos ,
-																					wordwrap=30)
+																		pos = (	posx ,
+																				-len(self.texte_liste)/10,
+																				0      ) ,
+																		scale = 0.05+int(text[borne1-2])/100 ,
+																		align = pos )
 
 						self.texte_liste[str(chap_nbr)+"n"] = OnscreenText(text=" ",pos=(0,-len(self.texte_liste)/10,0))
 						borne1 , borne2 = None , None
 
-	def format(self,texte) :
+	def format(self,string) :
 		"""
 		Met le texte dans un certain format
 		texte : str raw de UN paragraphe
@@ -98,25 +97,24 @@ class Myapp(ShowBase) :
 
 		sert surtout a partitionner un texte en chaine plus petite (pour l'instant)
 		"""
-
-		nbr_cara = 70
+		
+		string = string.replace('\n',' ')
+		
 		formated_text = ""
+		max_char = 70
+		c = 0 
 
-		texte = texte.replace('\n',' ')
+		for i in string :
+			if len(string) <= max_char :
+				formated_text+=string+"\n"
+				break
+			if c > max_char and string[c] == ' ' :  # FAIRE LE SYSTEME DE LIGNE 
+				formated_text += string[:c]+"\n"
+				string = string[c:]
+				c = 0 
+			c+= 1
 
-		i = 0
-
-		for o in texte :
-			i += 1 
-
-			if i > nbr_cara and texte[i] == ' ' :
-				texte = texte[:i]+'\na'+texte[i:]
-				print(texte)
-				i = 0
-
-
-
-		return texte # liste de ligne de longueur inferieure à 'nbr_cara'
+		return formated_text
 
 	def loop(self,task) :
 
