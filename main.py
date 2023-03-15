@@ -67,7 +67,7 @@ class Myapp(ShowBase) :
 						raise Exception("erreur dans le chapitre")
 					else :
 
-						formated_text = self.format(text[borne1:borne2+1])
+						formated_text = text[borne1:borne2+1]
 						chap_nbr += 1
 						
 						if int(text[borne1-2]) > 1 :
@@ -82,7 +82,8 @@ class Myapp(ShowBase) :
 																							-len(self.texte_liste)/10,
 																							0      ) ,
 																					scale = 0.05+int(text[borne1-2])/100 ,
-																					align = pos )
+																					align = pos ,
+																					wordwrap=30)
 
 						self.texte_liste[str(chap_nbr)+"n"] = OnscreenText(text=" ",pos=(0,-len(self.texte_liste)/10,0))
 						borne1 , borne2 = None , None
@@ -104,22 +105,18 @@ class Myapp(ShowBase) :
 		texte = texte.replace('\n',' ')
 
 		i = 0
-		
-		while True :
-			if len(texte) < nbr_cara :
-				print(formated_text,'\n')
-				formated_text+=texte+"\n"
-				break
-			elif i > nbr_cara and texte[i] == ' ' :   # PROBLEME SUR LE FORMATAGE
-				print(formated_text,'\n')
-				formated_text+=texte+"\n"
-				texte = texte[i:]
+
+		for o in texte :
+			i += 1 
+
+			if i > nbr_cara and texte[i] == ' ' :
+				texte = texte[:i]+'\na'+texte[i:]
+				print(texte)
 				i = 0
-			i += 1
 
 
 
-		return formated_text # liste de ligne de longueur inferieure à 'nbr_cara'
+		return texte # liste de ligne de longueur inferieure à 'nbr_cara'
 
 	def loop(self,task) :
 
