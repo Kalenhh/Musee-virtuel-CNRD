@@ -21,7 +21,8 @@ class Myapp(ShowBase) :
 
 		self.widget = []		# liste de widget ex : bouton , barre , input
 		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
-		self.nbr_ligne = 0
+
+		self.padding = 0.07
 
 		self.taskMgr.add(self.loop,'loop')
 
@@ -56,6 +57,8 @@ class Myapp(ShowBase) :
 		borne2 = None
 		chap_nbr = 0
 
+		next_ligne_pos = 0
+
 		for i in range(len(text)-2) :
 			if text[i] =='<' and text[i+2] == '>' :
 
@@ -81,19 +84,19 @@ class Myapp(ShowBase) :
 
 						self.texte_liste[str(chap_nbr)] = OnscreenText(	text = formated_text ,
 																		pos = (	posx ,
-																				-self.nbr_ligne/10) ,
+																				-next_ligne_pos) ,
 																		scale = 0.05+int(text[borne1-2])/100 ,
 																		align = pos )
 						
-						self.nbr_ligne += nbr_ligne2/1.4+int(text[borne1-2])/3
+						next_ligne_pos += self.padding*nbr_ligne2+int(text[borne1-2])/100*nbr_ligne2
+
 						borne1 , borne2 = None , None
-		self.load_image('naga.PNG')
 		
 		for i in range(int(round(self.nbr_ligne,0))) :
 			self.texte_liste[i] = OnscreenText(text="-----------",pos=(-1,-i/10))
 
 
-	def load_image(self,path) :
+	def load_image(self,path) :  # A REFAIRE
 		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,-self.nbr_ligne/10),scale=0.3)
 
 
@@ -156,6 +159,14 @@ class Myapp(ShowBase) :
 
 				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)
 
+		if is_down('t') :
+			self.padding += 0.01 
+			self.load_chapter(1)
+		if is_down('g') :
+			self.padding -= 0.01
+			self.load_chapter(1)
+
+		print(self.padding)
 		return Task.cont
 
 	def load_menu(self) :
