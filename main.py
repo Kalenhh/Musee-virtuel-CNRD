@@ -21,6 +21,7 @@ class Myapp(ShowBase) :
 
 		self.widget = []		# liste de widget ex : bouton , barre , input
 		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
+		self.nbr_ligne = 0
 
 		self.taskMgr.add(self.loop,'loop')
 
@@ -41,6 +42,7 @@ class Myapp(ShowBase) :
 		for elt in self.texte_liste :
 			self.texte_liste[elt].destroy()
 		self.texte_liste = {}
+		self.nbr_ligne = 0
 		
 
 	def clear_all(self) :
@@ -49,7 +51,7 @@ class Myapp(ShowBase) :
 
 # --------------------------------
 
-	def show(self,text,position=0) :
+	def show(self,text) :
 		borne1 = None
 		borne2 = None
 		chap_nbr = 0
@@ -67,7 +69,7 @@ class Myapp(ShowBase) :
 						raise Exception("erreur dans le chapitre")
 					else :
 
-						formated_text = self.format(text[borne1:borne2+1])
+						formated_text,nbr_ligne2 = self.format(text[borne1:borne2+1])
 						chap_nbr += 1
 						
 						if int(text[borne1-2]) > 1 :
@@ -79,13 +81,22 @@ class Myapp(ShowBase) :
 
 						self.texte_liste[str(chap_nbr)] = OnscreenText(	text = formated_text ,
 																		pos = (	posx ,
-																				-len(self.texte_liste)/10,
-																				0      ) ,
+																				-self.nbr_ligne/10) ,
 																		scale = 0.05+int(text[borne1-2])/100 ,
 																		align = pos )
-
-						self.texte_liste[str(chap_nbr)+"n"] = OnscreenText(text=" ",pos=(0,-len(self.texte_liste)/10,0))
+						
+						self.nbr_ligne += nbr_ligne2/1.4+int(text[borne1-2])/3
 						borne1 , borne2 = None , None
+		self.load_image('naga.PNG')
+		
+		for i in range(int(round(self.nbr_ligne,0))) :
+			self.texte_liste[i] = OnscreenText(text="-----------",pos=(-1,-i/10))
+
+
+	def load_image(self,path) :
+		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,-self.nbr_ligne/10),scale=0.3)
+
+
 
 	def format(self,string) :
 		"""
@@ -104,17 +115,21 @@ class Myapp(ShowBase) :
 		max_char = 70
 		c = 0 
 
+		nbr_ligne = 0
+
 		for i in string :
 			if len(string) <= max_char :
 				formated_text+=string+"\n"
+				nbr_ligne += 1
 				break
-			if c > max_char and string[c] == ' ' :  # FAIRE LE SYSTEME DE LIGNE 
+			if c > max_char and string[c] == ' ' :  
 				formated_text += string[:c]+"\n"
 				string = string[c:]
 				c = 0 
+				nbr_ligne+= 1
 			c+= 1
 
-		return formated_text
+		return formated_text , nbr_ligne
 
 	def loop(self,task) :
 
@@ -130,8 +145,16 @@ class Myapp(ShowBase) :
 
 		if delta != 0 :
 			for i in self.texte_liste :
+				
+				curr = self.texte_liste[i]
+				if isinstance(curr,OnscreenImage) :
+					curr['pos'] = (curr['pos'][0],0, curr['pos'][2]+delta)
+					continue
+				elif isinstance(curr,DirectButton) :
+					curr.setPos(0,0,curr.getPos()[2]+delta)
+					continue
 
-				self.texte_liste[i]['pos'] = (self.texte_liste[i]['pos'][0], self.texte_liste[i]['pos'][1]+delta ,0)
+				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)
 
 		return Task.cont
 
@@ -168,7 +191,7 @@ class Myapp(ShowBase) :
 		"""
 		self.clear_all()
 
-		self.widget.append(go_back_button:=DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9)))
+		self.texte_liste['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9))
 
 		with  open(str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
