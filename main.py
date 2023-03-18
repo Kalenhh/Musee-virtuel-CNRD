@@ -22,117 +22,15 @@ class Myapp(ShowBase) :
 		self.widget = []		# liste de widget ex : bouton , barre , input
 		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
 
-		self.padding = 0.07
-
 		self.taskMgr.add(self.loop,'loop')
 
+		
 		t1 = OnscreenText("0,0",pos=(0,0,0))
 		t2 = OnscreenText("1,0",pos=(1,0,0))
 		t3 = OnscreenText("-1,0",pos=(-1,0,0))
 		t4 = OnscreenText("0,1",pos=(0,1,0))
 
 		self.load_menu()
-
-# Clear fonctions -----------------
-	def clear_widget(self) :
-		for elt in self.widget :
-			elt.destroy()
-		self.widget = []
-
-	def clear_text(self) :
-		for elt in self.texte_liste :
-			self.texte_liste[elt].destroy()
-		self.texte_liste = {}
-		self.nbr_ligne = 0
-		
-
-	def clear_all(self) :
-		self.clear_widget()
-		self.clear_text()
-
-# --------------------------------
-
-	def show(self,text) :
-		borne1 = None
-		borne2 = None
-		chap_nbr = 0
-
-		next_ligne_pos = 0
-
-		for i in range(len(text)-2) :
-			if text[i] =='<' and text[i+2] == '>' :
-
-
-				if borne1 is None :
-					borne1 = i +3 
-				elif borne2 is None :
-					borne2 = i-1
-					
-					if text[borne1-2] != text[borne2+2] :
-						raise Exception("erreur dans le chapitre")
-					else :
-
-						formated_text,nbr_ligne2 = self.format(text[borne1:borne2+1])
-						chap_nbr += 1
-						
-						if int(text[borne1-2]) > 1 :
-							pos = TextNode.ACenter
-							posx = 0
-						else :
-							pos = TextNode.ALeft
-							posx = -1
-
-						self.texte_liste[str(chap_nbr)] = OnscreenText(	text = formated_text ,
-																		pos = (	posx ,
-																				-next_ligne_pos) ,
-																		scale = 0.05+int(text[borne1-2])/100 ,
-																		align = pos )
-						
-						next_ligne_pos += self.padding*nbr_ligne2+int(text[borne1-2])/100*nbr_ligne2
-
-						borne1 , borne2 = None , None
-		
-		for i in range(int(round(self.nbr_ligne,0))) :
-			self.texte_liste[i] = OnscreenText(text="-----------",pos=(-1,-i/10))
-
-
-	def load_image(self,path) :  # A REFAIRE
-		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,-self.nbr_ligne/10),scale=0.3)
-
-
-
-	def format(self,string) :
-		"""
-		Met le texte dans un certain format
-		texte : str raw de UN paragraphe
-		scale : taille du texte -> pour ajuster le nombre de caractere par ligne selon la taille de la fenetre bh ui
-
-		le texte formaté doit tenir dans le cadre visible 
-
-		sert surtout a partitionner un texte en chaine plus petite (pour l'instant)
-		"""
-		
-		string = string.replace('\n',' ')
-		
-		formated_text = ""
-		max_char = 70
-		c = 0 
-
-		nbr_ligne = 0
-
-		for i in string :
-			if len(string) <= max_char :
-				formated_text+=string+"\n"
-				nbr_ligne += 1
-				break
-			if c > max_char and string[c] == ' ' :  
-				formated_text += string[:c]+"\n"
-				string = string[c:]
-				c = 0 
-				nbr_ligne+= 1
-			c+= 1
-
-		return formated_text , nbr_ligne
 
 	def loop(self,task) :
 
@@ -159,17 +57,149 @@ class Myapp(ShowBase) :
 
 				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)
 
-		if is_down('t') :
-			self.padding += 0.01 
-			self.load_chapter(1)
-		if is_down('g') :
-			self.padding -= 0.01
-			self.load_chapter(1)
-
-		print(self.padding)
 		return Task.cont
 
+
+
+# Clear fonctions -----------------
+	def clear_widget(self) :
+		for elt in self.widget :
+			elt.destroy()
+		self.widget = []
+
+	def clear_text(self) :
+		for elt in self.texte_liste :
+			self.texte_liste[elt].destroy()
+		self.texte_liste = {}
+		self.nbr_ligne = 0
+		
+
+	def clear_all(self) :
+		self.clear_widget()
+		self.clear_text()
+
+# --------------------------------
+
+	def load_chapter(self,chap_id) :
+		"""
+		Charge le layout pour l'affichage d'un chapitre
+
+		"""
+		self.clear_all()
+
+		self.texte_liste['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9))
+
+		with  open(str(chap_id)+".txt",'r',encoding='utf-8') as chap :
+			texte = chap.read()
+			self.show(texte)
+
+
+
+	def show(self,text) :
+		borne1 = None
+		borne2 = None
+		chap_nbr = 0
+
+		next_ligne_pos = 0
+
+		padding = 0.07 # Constante
+
+		for i in range(len(text)-2) :
+			if text[i] =='<' and text[i+2] == '>' :
+
+
+				if borne1 is None :
+					borne1 = i +3 
+				elif borne2 is None :
+					borne2 = i-1
+					
+					if text[borne1-2] != text[borne2+2] :
+						raise Exception("erreur dans le chapitre")
+					
+					else :  # Un paragraphe a été défini
+
+						current_paragraphe , nbr_ligne = self.partitionner(text[borne1:borne2+1])
+						scale = int(text[borne1-2])
+
+						self.affiche(	current_paragraphe,
+										chap_nbr,
+										scale,
+										next_ligne_pos)
+
+						chap_nbr += 1
+						borne1 , borne2 = None , None
+						next_ligne_pos -= padding*nbr_ligne + scale/100*nbr_ligne
+
+
+
+	def affiche(self,texte:str,name:int,scale:int,position:int) :
+		"""
+		Affiche du texte 
+		texte : le texte a afficher
+		name : le nom de l'objet contenant le texte
+		scale : taille
+		position : nombre négatif pour indiquer la position en Y du texte
+		"""
+
+		if scale > 1 :
+			pos = TextNode.ACenter
+			posx = 0
+		else :
+			pos = TextNode.ALeft
+			posx = -1
+
+		self.texte_liste[str(name)] = OnscreenText(	text = texte ,
+														pos = (	posx ,
+																position) ,
+														scale = 0.05+scale/100 ,
+														align = pos )
+
+
+	def partitionner(self,string) :
+		"""
+		Met le texte dans un certain format
+		texte : str raw de UN paragraphe
+
+		sert surtout a partitionner un texte  (pour l'instant)
+		"""
+		
+		string = string.replace('\n',' ')
+		
+		formated_text = ""
+		max_char = 70
+		c = 0 
+
+		nbr_ligne = 0
+
+		for i in string :
+			if len(string) <= max_char :
+				formated_text+=string+"\n"
+				nbr_ligne += 1
+				break
+			if c > max_char and string[c] == ' ' :  
+				formated_text += string[:c]+"\n"
+				string = string[c:]
+				c = 0 
+				nbr_ligne+= 1
+			c+= 1
+
+		return formated_text , nbr_ligne
+
+
+	def load_image(self,path) :  # A REFAIRE
+		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,-self.nbr_ligne/10),scale=0.3)
+
+
+
+
+
+
+
 	def load_menu(self) :
+		"""
+		Affiche le menu principal de l'app
+		"""
+
 		self.clear_all()
 		
 		start_button = 		DirectButton(text="Lire",command=self.load_chapter,extraArgs=[1],
@@ -189,37 +219,27 @@ class Myapp(ShowBase) :
 		self.widget.append(param_button)
 		self.widget.append(exit_button)
 
+
 	def load_chapter_menu(self) :
 		"""
 		Menu pour selectionner un chapitre en particuler
 		"""
-		self.clear_all()
+
 		self.load_chapter(1)
 
-	def load_chapter(self,chap_id) :
-		"""
-		affiche un chapitre
-		"""
-		self.clear_all()
-
-		self.texte_liste['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9))
-
-		with  open(str(chap_id)+".txt",'r',encoding='utf-8') as chap :
-			texte = chap.read()
-			self.show(texte)
 
 	def load_param_menu(self) :
 		"""
 		Menu pour changer les parametres
 		"""
+
 		self.clear_all()
 
 
-
-
-
-
 	def close_app(self) :
+		"""
+		Ferme l'app en sécurité
+		"""
 		self.finalizeExit()
 
 
