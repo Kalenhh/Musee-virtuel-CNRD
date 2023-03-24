@@ -24,41 +24,75 @@ class Myapp(ShowBase) :
 
 		self.widget = {}		# liste de widget ex : bouton , barre , input
 		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
-
-		self.taskMgr.add(self.loop,'loop')
-
 		
 		t1 = OnscreenText("0,0",pos=(0,0,0))
 		t2 = OnscreenText("1,0",pos=(1,0,0))
-		t3 = OnscreenText("-1,0",pos=(-1,0,0))
+		t3 = OnscreenText("-1,0",pos=(-1,0,0))  # ONSCREENTEXT    ( VERTICALE  ,  HORIZONTALE , INUTILE    )
 		t4 = OnscreenText("0,1",pos=(0,1,0))
 
 		self.load_menu()
+
+		self.padding = 0.07
+		self.k = 1
+		self.c = 100
+		self.taskMgr.add(self.loop,'loop')
+
 
 	def loop(self,task) :
 
 		is_down = base.mouseWatcherNode.is_button_down
 
 		#print(ShowBase.get_size(self))
+		print(self.padding,self.k,self.c)
 
 		delta = 0
-		if is_down('m') :
+		if is_down('m') and self.texte_liste['end_balise']['pos'][1] <= 0 : #descendre
 			delta = 0.01
-		elif is_down('p') :
+		elif is_down('p') and self.texte_liste['start_balise']['pos'][1] >= 0 : #monter
 			delta = -0.01
+
+		if is_down('a') :
+			self.c  += 0.1
+			self.load_chapter(0)
+			
+
+		if is_down('q') :
+			self.c -= 0.1
+			self.load_chapter(0)
+			
+
+		if is_down('z') :
+			self.k += 1
+			self.load_chapter(0)
+			
+
+		if is_down('s') :
+			self.k -= 1
+			self.load_chapter(0)
+			
+
+		if is_down('e') :
+			self.padding += 0.01
+			self.load_chapter(0)
+			
+
+		if is_down('d') :
+			self.padding -= 0.01
+			self.load_chapter(0)
+			
+
 
 		if delta != 0 :
 			for i in self.texte_liste :
 				
 				curr = self.texte_liste[i]
-				if isinstance(curr,OnscreenImage) :
-					curr['pos'] = (curr['pos'][0],0, curr['pos'][2]+delta)
-					continue
-				elif isinstance(curr,DirectButton) :
+
+				if isinstance(curr,DirectButton) :
 					curr.setPos(0,0,curr.getPos()[2]+delta)
 					continue
 
 				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)
+
 
 		return Task.cont
 
@@ -89,12 +123,13 @@ class Myapp(ShowBase) :
 		"""
 		self.clear_all()
 
-		self.texte_liste['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9))
-
 		with  open("chapitres/"+str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
 			self.show(texte)
 
+
+		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.8,2),frameColor=(0,0,0,255))
+		self.widget['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
 
 	def show(self,text) :
@@ -107,13 +142,14 @@ class Myapp(ShowBase) :
 
 		"""
 
+		self.texte_liste['start_balise'] = OnscreenText(text='',pos=(0,0,0))
+
 		borne1 , borne2 , borne3 , borne4 = None , None , None , None
 
 		para_nbr = 0
 
 		next_ligne_pos = 0
 
-		padding = 0.07 # Constante
 
 		for i in range(len(text)) :
 			
@@ -134,27 +170,42 @@ class Myapp(ShowBase) :
 					
 				if text[borne1+1] != text[borne3+1] :
 					raise Exception('Erreur dans le chapitre') # Erreur de mise en forme
-					
 				
+
+				current_paragraphe , nbr_ligne = self.partitionner(text[borne2+1:borne3])
+
 				if text[borne1+1] in ['1','2','3','4'] :
-					current_paragraphe , nbr_ligne = self.partitionner(text[borne2+1:borne3])
 					scale = int(text[borne1+1])
 
 					self.affiche(	current_paragraphe,
 									para_nbr,
 									scale,
-									next_ligne_pos)
-					next_ligne_pos -= padding*nbr_ligne + scale/100*nbr_ligne
+									-next_ligne_pos)
 				
 				elif text[borne1+1] == 'i' :
-					self.load_image(text[borne1+3:borne2],next_ligne_pos)
+					self.load_image(text[borne1+3:borne2],-next_ligne_pos,para_nbr+1)
+					next_ligne_pos += 0.5*self.k  # TAILLE DE L4IMAGE
+
+					self.texte_liste[str(para_nbr)] = OnscreenText(text="")
+
+					para_nbr += 1
+					self.affiche(current_paragraphe,
+								para_nbr,
+								1,
+								-next_ligne_pos)
+					self.texte_liste[str(para_nbr)]['pos'] = (	50,
+																self.texte_liste[str(para_nbr)]['pos'][1],
+																0 )
 
 
+				next_ligne_pos += self.padding*nbr_ligne + scale/self.c*nbr_ligne
 
 
 
 				para_nbr += 1
 				borne1 , borne2 , borne3 , borne4 = None , None , None , None
+
+		self.texte_liste['end_balise'] = OnscreenText(text='',pos=(0,-next_ligne_pos,0))
 
 
 
@@ -212,10 +263,12 @@ class Myapp(ShowBase) :
 		return formated_text , nbr_ligne
 
 
-	def load_image(self,path,pos) :  # A REFAIRE
-		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,pos),scale=0.3)
+	def load_image(self,path,pos,args) :  # A REFAIRE
+		self.texte_liste[str(path)] = DirectButton(image=str(path), pos=(0, 0,pos),scale=0.3,command=self.deplier,extraArgs=[args])
+		print(self.texte_liste[str(path)]["frameSize"])
 
-
+	def deplier(self,para_id) :
+		return None
 
 
 
@@ -227,19 +280,16 @@ class Myapp(ShowBase) :
 		"""
 
 		self.clear_all()
+		self.taskMgr.remove('loop')
+
 		
 
 		self.widget['chapitre_button'] = 	DirectButton(text="chapitre",command=self.load_chapter_menu,
 										scale=0.1,pos=(0,0,-0.2),frameSize=(-2,2,-0.5,0.9))
 		
-		self.widget['param_button'] = 		DirectButton(text="param",command=self.load_param_menu,
-										scale=0.1,pos=(0,0,-0.4),frameSize=(-2,2,-0.5,0.9))
-		
 		self.widget['exit_button'] = 		DirectButton(text="quitter",command=self.close_app,
 										scale=0.1,pos=(0,0,-0.6),frameSize=(-2,2,-0.5,0.9))#left right bottom top
 	
-		
-
 
 	def load_chapter_menu(self) :
 		"""
@@ -255,17 +305,6 @@ class Myapp(ShowBase) :
 			self.widget['button_chap'+str(i)] = DirectButton(	text=onlyfiles[i],scale=0.1,pos=(0,0,-0.2*i),
 																frameSize=(-2,2,-0.5,0.9),
 																command=self.load_chapter,extraArgs=[i] )
-
-
-
-
-
-	def load_param_menu(self) :
-		"""
-		Menu pour changer les parametres
-		"""
-
-		self.clear_all()
 
 
 	def close_app(self) :
