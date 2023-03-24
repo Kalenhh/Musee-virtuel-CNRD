@@ -10,6 +10,9 @@ from panda3d.core import VBase4 , NodePath , TextNode
 
 from direct.gui.OnscreenText import OnscreenText
 
+from os import listdir
+from os.path import isfile, join
+
 
 
 
@@ -19,7 +22,7 @@ class Myapp(ShowBase) :
 		ShowBase.__init__(self)
 		ShowBase.setBackgroundColor(self,r=255,g=255,b=255,a=0.0)
 
-		self.widget = []		# liste de widget ex : bouton , barre , input
+		self.widget = {}		# liste de widget ex : bouton , barre , input
 		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
 
 		self.taskMgr.add(self.loop,'loop')
@@ -64,14 +67,13 @@ class Myapp(ShowBase) :
 # Clear fonctions -----------------
 	def clear_widget(self) :
 		for elt in self.widget :
-			elt.destroy()
-		self.widget = []
+			self.widget[elt].destroy()
+		self.widget = {}
 
 	def clear_text(self) :
 		for elt in self.texte_liste :
 			self.texte_liste[elt].destroy()
 		self.texte_liste = {}
-		self.nbr_ligne = 0
 		
 
 	def clear_all(self) :
@@ -89,46 +91,70 @@ class Myapp(ShowBase) :
 
 		self.texte_liste['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0),frameSize=(-2,2,-0.5,0.9))
 
-		with  open(str(chap_id)+".txt",'r',encoding='utf-8') as chap :
+		with  open("chapitres/"+str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
 			self.show(texte)
 
 
 
 	def show(self,text) :
-		borne1 = None
-		borne2 = None
-		chap_nbr = 0
+		"""
+		borne 1 <
+		borne 2 >
+				texte
+		borne 3 <
+		borne 4 >
+
+		"""
+
+		borne1 , borne2 , borne3 , borne4 = None , None , None , None
+
+		para_nbr = 0
 
 		next_ligne_pos = 0
 
 		padding = 0.07 # Constante
 
-		for i in range(len(text)-2) :
-			if text[i] =='<' and text[i+2] == '>' :
+		for i in range(len(text)) :
+			
+			if text[i] == '<' and borne1 is None :
+				borne1 = i 
+				continue
+			
+			elif text[i] == '>' and borne2 is None :
+				borne2 = i
+				continue
 
+			elif text[i] == '<' and borne3 is None :
+				borne3 = i
+				continue
 
-				if borne1 is None :
-					borne1 = i +3 
-				elif borne2 is None :
-					borne2 = i-1
+			elif text[i] == '>' and borne4 is None : # Un paragraphe est délimité
+				borne4 = i 
 					
-					if text[borne1-2] != text[borne2+2] :
-						raise Exception("erreur dans le chapitre")
+				if text[borne1+1] != text[borne3+1] :
+					raise Exception('Erreur dans le chapitre') # Erreur de mise en forme
 					
-					else :  # Un paragraphe a été défini
+				
+				if text[borne1+1] in ['1','2','3','4'] :
+					current_paragraphe , nbr_ligne = self.partitionner(text[borne2+1:borne3])
+					scale = int(text[borne1+1])
 
-						current_paragraphe , nbr_ligne = self.partitionner(text[borne1:borne2+1])
-						scale = int(text[borne1-2])
+					self.affiche(	current_paragraphe,
+									para_nbr,
+									scale,
+									next_ligne_pos)
+					next_ligne_pos -= padding*nbr_ligne + scale/100*nbr_ligne
+				
+				elif text[borne1+1] == 'i' :
+					self.load_image(text[borne1+3:borne2],next_ligne_pos)
 
-						self.affiche(	current_paragraphe,
-										chap_nbr,
-										scale,
-										next_ligne_pos)
 
-						chap_nbr += 1
-						borne1 , borne2 = None , None
-						next_ligne_pos -= padding*nbr_ligne + scale/100*nbr_ligne
+
+
+
+				para_nbr += 1
+				borne1 , borne2 , borne3 , borne4 = None , None , None , None
 
 
 
@@ -186,8 +212,8 @@ class Myapp(ShowBase) :
 		return formated_text , nbr_ligne
 
 
-	def load_image(self,path) :  # A REFAIRE
-		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,-self.nbr_ligne/10),scale=0.3)
+	def load_image(self,path,pos) :  # A REFAIRE
+		self.texte_liste[str(path)+str(len(self.texte_liste))] = DirectButton(image=str(path), pos=(0, 0,pos),scale=0.3)
 
 
 
@@ -202,22 +228,17 @@ class Myapp(ShowBase) :
 
 		self.clear_all()
 		
-		start_button = 		DirectButton(text="Lire",command=self.load_chapter,extraArgs=[1],
-										scale=0.1,pos=(0,0,0),frameSize=(-2,2,-0.5,0.9))
 
-		chapitre_button = 	DirectButton(text="chapitre",command=self.load_chapter_menu,
+		self.widget['chapitre_button'] = 	DirectButton(text="chapitre",command=self.load_chapter_menu,
 										scale=0.1,pos=(0,0,-0.2),frameSize=(-2,2,-0.5,0.9))
 		
-		param_button = 		DirectButton(text="param",command=self.load_param_menu,
+		self.widget['param_button'] = 		DirectButton(text="param",command=self.load_param_menu,
 										scale=0.1,pos=(0,0,-0.4),frameSize=(-2,2,-0.5,0.9))
 		
-		exit_button = 		DirectButton(text="quitter",command=self.close_app,
+		self.widget['exit_button'] = 		DirectButton(text="quitter",command=self.close_app,
 										scale=0.1,pos=(0,0,-0.6),frameSize=(-2,2,-0.5,0.9))#left right bottom top
 	
-		self.widget.append(start_button)
-		self.widget.append(chapitre_button)
-		self.widget.append(param_button)
-		self.widget.append(exit_button)
+		
 
 
 	def load_chapter_menu(self) :
@@ -225,7 +246,18 @@ class Myapp(ShowBase) :
 		Menu pour selectionner un chapitre en particuler
 		"""
 
-		self.load_chapter(1)
+		self.clear_all()
+
+		onlyfiles = [f for f in listdir("chapitres") if isfile(join("chapitres", f))]
+		print(onlyfiles)
+
+		for i in range(len(onlyfiles)) :
+			self.widget['button_chap'+str(i)] = DirectButton(	text=onlyfiles[i],scale=0.1,pos=(0,0,-0.2*i),
+																frameSize=(-2,2,-0.5,0.9),
+																command=self.load_chapter,extraArgs=[i] )
+
+
+
 
 
 	def load_param_menu(self) :
