@@ -13,7 +13,7 @@ from direct.gui.OnscreenText import OnscreenText
 from os import listdir
 from os.path import isfile, join
 
-
+from time import sleep
 
 
 class Myapp(ShowBase) :
@@ -22,8 +22,8 @@ class Myapp(ShowBase) :
 		ShowBase.__init__(self)
 		ShowBase.setBackgroundColor(self,r=255,g=255,b=255,a=0.0)
 
-		self.widget = {}		# liste de widget ex : bouton , barre , input
-		self.texte_liste = {} 	# Chaque element est un paragraphe de texte
+		self.widget = {}		# liste de widget ex : bouton , barre , input  TRUC FIXES / GUI
+		self.texte_liste = {} 	# Chaque element est un paragraphe de texte   TRUC PAS FIXES 
 		
 		t1 = OnscreenText("0,0",pos=(0,0,0))
 		t2 = OnscreenText("1,0",pos=(1,0,0))
@@ -37,13 +37,18 @@ class Myapp(ShowBase) :
 		self.c = 100
 		self.taskMgr.add(self.loop,'loop')
 
+		self.music_time = 0
+
+
 
 	def loop(self,task) :
 
 		is_down = base.mouseWatcherNode.is_button_down
 
 		#print(ShowBase.get_size(self))
-		print(self.padding,self.k,self.c)
+		#print(self.padding,self.k,self.c)
+
+		#print(self.mySound.status())
 
 		delta = 0
 		if is_down('m') and self.texte_liste['end_balise']['pos'][1] <= 0 : #descendre
@@ -91,6 +96,10 @@ class Myapp(ShowBase) :
 					curr.setPos(0,0,curr.getPos()[2]+delta)
 					continue
 
+				elif isinstance(curr,OnscreenImage) :
+					curr['pos'] = (curr['pos'][0], 0 , curr['pos'][2]+delta)
+					continue
+
 				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)
 
 
@@ -125,14 +134,41 @@ class Myapp(ShowBase) :
 
 		with  open("chapitres/"+str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
-			self.show(texte)
+			self.show(texte,chap_id)
 
 
 		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.8,2),frameColor=(0,0,0,255))
 		self.widget['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
 
-	def show(self,text) :
+		self.mySound = base.loader.loadSfx(f"sound/{chap_id}.wav")
+		self.mySound.setVolume(0.5)
+
+		self.widget["playsound_button"] = DirectButton(text="musique",command=self.musique,
+														scale=0.1,pos=(0.8,0,0.9),frameSize=(-2,2,-0.5,0.9))
+
+		self.widget["vol_plus_button"] = DirectButton(text="+",command = lambda : self.mySound.setVolume(self.mySound.getVolume()+0.1) ,
+														scale=0.1,pos=(1,0,0.9),frameSize=(-1,1,-0.5,0.9))
+
+		self.widget["vol_moins_button"] = DirectButton(text="-",command =lambda : self.mySound.setVolume(self.mySound.getVolume()-0.1)  ,
+														scale=0.1,pos=(0.6,0,0.9),frameSize=(-1,1,-0.5,0.9))
+
+
+	def musique(self) :
+		print(self.mySound.status())
+		if self.mySound.status() == self.mySound.PLAYING :
+			self.music_time = self.mySound.getTime()
+			self.mySound.stop()
+		else :
+			self.mySound.play()
+			self.mySound.setTime(self.music_time)
+			self.mySound.play()
+
+			self.music_time = 0
+
+
+
+	def show(self,text,chap_id) :
 		"""
 		borne 1 <
 		borne 2 >
@@ -174,6 +210,8 @@ class Myapp(ShowBase) :
 
 				current_paragraphe , nbr_ligne = self.partitionner(text[borne2+1:borne3])
 
+				
+				# ---------------------------------------------------------
 				if text[borne1+1] in ['1','2','3','4'] :
 					scale = int(text[borne1+1])
 
@@ -181,10 +219,13 @@ class Myapp(ShowBase) :
 									para_nbr,
 									scale,
 									-next_ligne_pos)
+
 				
 				elif text[borne1+1] == 'i' :
-					self.load_image(text[borne1+3:borne2],-next_ligne_pos,para_nbr+1)
-					next_ligne_pos += 0.5*self.k  # TAILLE DE L4IMAGE
+
+
+					self.load_image(text[borne1+3],-next_ligne_pos,para_nbr+1)
+					next_ligne_pos += 0.5*self.k  # TAILLE DE L4IMAGE     TESTER AVEC PLUSIEURS IMAGE LA TAILLE DU BTON
 
 					self.texte_liste[str(para_nbr)] = OnscreenText(text="")
 
@@ -200,6 +241,7 @@ class Myapp(ShowBase) :
 
 				next_ligne_pos += self.padding*nbr_ligne + scale/self.c*nbr_ligne
 
+				# ---------------------------------------------------------
 
 
 				para_nbr += 1
@@ -207,6 +249,16 @@ class Myapp(ShowBase) :
 
 		self.texte_liste['end_balise'] = OnscreenText(text='',pos=(0,-next_ligne_pos,0))
 
+
+		if chap_id < 7 : # NOMBRE DE CHAP MAX
+			self.texte_liste['next_chap_button'] = DirectButton(text='Next',pos=(0.5,-next_ligne_pos,0),
+															command = self.load_chapter,extraArgs=[chap_id+1],
+															scale=0.3)
+
+		if chap_id > 1 : # NOMBRE DE CHAP MINI
+			self.texte_liste['prev_chap_button'] = DirectButton(text='prev',pos=(-0.5,-next_ligne_pos,0),
+															command = self.load_chapter,extraArgs=[chap_id-1],
+															scale=0.3)
 
 
 	def affiche(self,texte:str,name:int,scale:int,position:int) :
@@ -263,15 +315,10 @@ class Myapp(ShowBase) :
 		return formated_text , nbr_ligne
 
 
-	def load_image(self,path,pos,args) :  # A REFAIRE
-		self.texte_liste[str(path)] = DirectButton(image=str(path), pos=(0, 0,pos),scale=0.3,command=self.deplier,extraArgs=[args])
-		print(self.texte_liste[str(path)]["frameSize"])
+	def load_image(self,id_photo,pos,args) :  # A REFAIRE
 
-	def deplier(self,para_id) :
-		return None
-
-
-
+		path = "images/"+id_photo+".png"
+		self.texte_liste[path] = OnscreenImage(image=path, pos=(0, 0,pos),scale=0.3)
 
 
 	def load_menu(self) :
@@ -302,9 +349,9 @@ class Myapp(ShowBase) :
 		print(onlyfiles)
 
 		for i in range(len(onlyfiles)) :
-			self.widget['button_chap'+str(i)] = DirectButton(	text=onlyfiles[i],scale=0.1,pos=(0,0,-0.2*i),
+			self.widget['button_chap'+str(i+1)] = DirectButton(	text=onlyfiles[i],scale=0.1,pos=(0,0,-0.2*i),
 																frameSize=(-2,2,-0.5,0.9),
-																command=self.load_chapter,extraArgs=[i] )
+																command=self.load_chapter,extraArgs=[i+1] )
 
 
 	def close_app(self) :
