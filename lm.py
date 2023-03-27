@@ -1,27 +1,31 @@
 #coding:utf-8
 
-text = "There are many variations of passages of Lorem Ipsum available\n, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc."
-
+text = "Je m’appelle André BESSIERE et j’ai 17 ans. Je commence ce carnet aujourd’hui, 30 août 1939. Qu’est-ce que je vais pouvoir raconter, à part qu’il fait terriblement chaud. La première idée qui me vient à l’esprit et qui me fait écrire est le silence gêné de mes parents quand j’évoque la situation actuelle. Je ne suis pas fou, j’ai 13 ans et je suis un des meilleurs de ma classe. La presse le montre bien, la situation est très tendue et je vois les adultes se parler en douce pour ne pas que j’entende. Mais je sens bien au collège que la situation a changé depuis très peu de temps…"
 
 def format(string) :
 
 	print(string)
 	string.replace(" ","\n")
 	print(string)
+
 	formated_text = ""
 	max_char = 30
 	c = 0 
+	last_space = 0 # index
 
-	for i in string :
-		if len(string) <= max_char :
-			formated_text+=string+"\n"
-			break
-		if c > max_char and string[c] == ' ' :
-			formated_text += string[:c]+"\n"
-			string = string[c:]
-			c = 0 
-		c+= 1
+	for i in range(len(string)) :
 
-	return formated_text
+		c += 1
+
+		if string[i] == " " and c > max_char :
+			string = string[:i] + "\n" + string[i+1:]
+			c = 0
+
+
+
+
+
+
+	return string
 
 print(format(text))

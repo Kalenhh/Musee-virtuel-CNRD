@@ -57,33 +57,33 @@ class Myapp(ShowBase) :
 			delta = -0.01
 
 		if is_down('a') :
-			self.c  += 0.1
-			self.load_chapter(0)
+			self.c  += 0.1*10
+			self.load_chapter(1)
 			
 
 		if is_down('q') :
-			self.c -= 0.1
-			self.load_chapter(0)
+			self.c -= 0.1*10
+			self.load_chapter(1)
 			
 
 		if is_down('z') :
-			self.k += 1
-			self.load_chapter(0)
+			self.k += 0.1
+			self.load_chapter(1)
 			
 
 		if is_down('s') :
-			self.k -= 1
-			self.load_chapter(0)
+			self.k -= 0.1
+			self.load_chapter(1)
 			
 
 		if is_down('e') :
 			self.padding += 0.01
-			self.load_chapter(0)
+			self.load_chapter(1)
 			
 
 		if is_down('d') :
 			self.padding -= 0.01
-			self.load_chapter(0)
+			self.load_chapter(1)
 			
 
 
@@ -137,6 +137,8 @@ class Myapp(ShowBase) :
 			self.show(texte,chap_id)
 
 
+
+		# WIDGET GUI PART ------------------------------------------------------------------------------------
 		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.8,2),frameColor=(0,0,0,255))
 		self.widget['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
@@ -152,6 +154,8 @@ class Myapp(ShowBase) :
 
 		self.widget["vol_moins_button"] = DirectButton(text="-",command =lambda : self.mySound.setVolume(self.mySound.getVolume()-0.1)  ,
 														scale=0.1,pos=(0.6,0,0.9),frameSize=(-1,1,-0.5,0.9))
+
+		# ---------------------------------------------------------------------------------------------------------
 
 
 	def musique(self) :
@@ -223,7 +227,7 @@ class Myapp(ShowBase) :
 				
 				elif text[borne1+1] == 'i' :
 
-
+					next_ligne_pos += 0.5*self.k
 					self.load_image(text[borne1+3],-next_ligne_pos,para_nbr+1)
 					next_ligne_pos += 0.5*self.k  # TAILLE DE L4IMAGE     TESTER AVEC PLUSIEURS IMAGE LA TAILLE DU BTON
 
@@ -299,20 +303,17 @@ class Myapp(ShowBase) :
 		c = 0 
 
 		nbr_ligne = 0
+	
+		for i in range(len(string)) :
 
-		for i in string :
-			if len(string) <= max_char :
-				formated_text+=string+"\n"
-				nbr_ligne += 1
-				break
-			if c > max_char and string[c] == ' ' :  
-				formated_text += string[:c]+"\n"
-				string = string[c:]
-				c = 0 
-				nbr_ligne+= 1
-			c+= 1
+			c += 1
 
-		return formated_text , nbr_ligne
+			if string[i] == " " and c > max_char :
+				string = string[:i] + "\n" + string[i+1:]
+				c = 0
+				nbr_ligne+= 1 
+
+		return string, nbr_ligne
 
 
 	def load_image(self,id_photo,pos,args) :  # A REFAIRE
