@@ -18,7 +18,7 @@
 Ca y est, c’est la guerre et mon père doit partir. Il m’a prévenu qu’il ne serait pas en première ligne à cause de son âge. Je suis soulagé. J’ai vu ma mère prendre une grande carte avec lui. On déménage ? <2>
 
 
-<i=2> https://centrehenriaigueperse.wordpress.com/2019/09/03/le-3-septembre-1939-la-france-declare-la-guerre-a-lallemagne-mais-que-va-t-on-faire-des-enfants/ <i>
+<i=2> <i>
 
 
 <1>Un plan de déplacement de population effectivement mis en place depuis juin 1935 est lui aussi créé et appliqué, qui prévoit le déplacement d’élèves, de personnels et de population vers d'autres écoles ou régions loin de la frontière Allemande. Le plan se structure de telle façon que les régions du nord, nord-est doivent fuir vers le sud, sud-ouest. La population de Paris est aussi concernée à cause de son importance stratégique et du nombre d’habitants.<1>
@@ -33,11 +33,11 @@ Ca y est, c’est la guerre et mon père doit partir. Il m’a prévenu qu’il 
 <1>Dès les premiers mois de la guerre, les instituteurs organisent également des replis d’enfants loin des zones de guerre (grâce aux listes des enfants scolarisés). Les enfants sont envoyés principalement dans les zones de campagne où ils sont logés dans des camps de vacances ou des familles. Afin de garder un semblant de normalité, les instituteurs continuent à garder un œil sur leurs élèves et assurent leurs écoles.<1>
 
 
-<1>Les habitants :
+<n>Les habitants :
 Du Nord Pas De Calais vers la Bretagne.
 Des Ardennes vers la région vendéenne.
 Du Bas-Rhin vers la Haute-Vienne et la Dordogne.
-Haut-Rhin vers le Lot-et-Garonne, le Gers et les Basses-Pyrénées.<1>
+Haut-Rhin vers le Lot-et-Garonne, le Gers et les Basses-Pyrénées.<n>
 
 
 <2>26 MAI 1940
@@ -60,7 +60,7 @@ Si je parle de cela, c’est qu’une terrible nouvelle vient de nous parvenir. 
 <1>En effet le Nord est occupé par les Allemands et la population française se fait mitrailler. Il y a énormément de morts.Le 16 mai 1940 la population de Reims commence à fuir. Le 6 juin c’est la population de Paris qui fuit. Cela donne lieu à une pagaille énorme. En effet les municipalités (maires, adjoints, …) ont parfois fui avant leur population. Cet exode soudain donne lieu à d’énormes embouteillages sur les routes. <1>
 
 
-<1>Paul Léautaud (1872/1956), très grand écrivain, qui habite dans un pavillon de la banlieue parisienne, écrit : « le jardinier des deux riches propriétaires à côté de chez moi est parti ce matin à pied, avec sa femme et un mioche, leurs affaires sur une brouette, sans trop savoir où ils allaient, laissant là avec leurs deux bonnes, ses deux vieilles patronnes »<1>
+<n>Paul Léautaud (1872/1956), très grand écrivain, qui habite dans un pavillon de la banlieue parisienne, écrit : « le jardinier des deux riches propriétaires à côté de chez moi est parti ce matin à pied, avec sa femme et un mioche, leurs affaires sur une brouette, sans trop savoir où ils allaient, laissant là avec leurs deux bonnes, ses deux vieilles patronnes »<n>
 
 
 <1>Très vite, les établissements scolaires sont réquisitionnés pour accueillir les gens qui fuient les combats. Suite au bombardement de Paris, les instituteurs évacuent en premier les enfants. Ils les envoient dans un autre département, avec un strict minimum : un oreiller et une couverture. En effet les établissements où ils sont accueillis n’en ont pas. La rentrée se fait donc principalement en octobre, on peut y voir une forte augmentation d’élèves due à l’exode dans certains départements. Par exemple, dans le Loir-et-Cher on passe de 32 000 à 53 000 élèves, en Charente on passe de 37 000 à 60 000 élèves.<1>
@@ -91,7 +91,7 @@ J’espère que mon père pourra revenir, nous n’avons que peu de nouvelles de
 <1>Entre 1944 et 1945 le retour des enfants et des familles auprès de leur région d’origine se fait petit à petit, en fonction de la libération des villes. Or, environ cent mille orphelins sont dénombrés et quatre-vingt mille ont disparu. De plus, les enfants ne comprennent pas que leurs pères ne reviennent pas malgré la fin de la guerre, pour la plupart ils vont donc vivre et grandir sans leur père.<1>
 
 
-<1>Certains orphelins qui ont perdu leur père durant la guerre. Sont considérés par l’Etat comme “les pupilles de la nation”. L’état les adopte comme un père et les éduque à ses frais<1>
+<n>Certains orphelins qui ont perdu leur père durant la guerre. Sont considérés par l’Etat comme “les pupilles de la nation”. L’état les adopte comme un père et les éduque à ses frais<n>
 
 
 <1>Philippe Pétain prend le pouvoir le 10 juillet 1940. Mais tout ne va pas se passer comme André l’avait prévu…<1>

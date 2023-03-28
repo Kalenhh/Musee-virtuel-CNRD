@@ -10,10 +10,44 @@ from panda3d.core import VBase4 , NodePath , TextNode
 
 from direct.gui.OnscreenText import OnscreenText
 
-from os import listdir
-from os.path import isfile, join
+import struct
+import imghdr
 
-from time import sleep
+def get_image_size(fname):
+	'''Determine the image type of fhandle and return its size.
+	from draco'''
+	with open(fname, 'rb') as fhandle:
+		head = fhandle.read(24)
+		if len(head) != 24:
+			return
+		if imghdr.what(fname) == 'png':
+			check = struct.unpack('>i', head[4:8])[0]
+			if check != 0x0d0a1a0a:
+				return
+			width, height = struct.unpack('>ii', head[16:24])
+		elif imghdr.what(fname) == 'gif':
+			width, height = struct.unpack('<HH', head[6:10])
+		elif imghdr.what(fname) == 'jpeg':
+			try:
+				fhandle.seek(0) # Read 0xff next
+				size = 2
+				ftype = 0
+				while not 0xc0 <= ftype <= 0xcf:
+					fhandle.seek(size, 1)
+					byte = fhandle.read(1)
+					while ord(byte) == 0xff:
+						byte = fhandle.read(1)
+					ftype = ord(byte)
+					size = struct.unpack('>H', fhandle.read(2))[0] - 2
+				# We are at a SOFn block
+				fhandle.seek(1, 1)  # Skip `precision' byte.
+				height, width = struct.unpack('>HH', fhandle.read(4))
+			except Exception: #IGNORE:W0703
+				return
+		else:
+			return
+		return width, height
+
 
 
 class Myapp(ShowBase) :
@@ -24,20 +58,16 @@ class Myapp(ShowBase) :
 
 		self.widget = {}		# liste de widget ex : bouton , barre , input  TRUC FIXES / GUI
 		self.texte_liste = {} 	# Chaque element est un paragraphe de texte   TRUC PAS FIXES 
-		
-		t1 = OnscreenText("0,0",pos=(0,0,0))
-		t2 = OnscreenText("1,0",pos=(1,0,0))
-		t3 = OnscreenText("-1,0",pos=(-1,0,0))  # ONSCREENTEXT    ( VERTICALE  ,  HORIZONTALE , INUTILE    )
-		t4 = OnscreenText("0,1",pos=(0,1,0))
 
 		self.load_menu()
 
-		self.padding = 0.07
-		self.k = 1
-		self.c = 100
-		self.taskMgr.add(self.loop,'loop')
+		self.padding = 0.06
+		self.k = 1.19
+		self.c = 0.06
 
 		self.music_time = 0
+
+		self.taskMgr.add(self.loop,'loop')
 
 
 
@@ -46,33 +76,31 @@ class Myapp(ShowBase) :
 		is_down = base.mouseWatcherNode.is_button_down
 
 		#print(ShowBase.get_size(self))
-		#print(self.padding,self.k,self.c)
-
-		#print(self.mySound.status())
+		print(self.padding,self.k,self.c)
 
 		delta = 0
 		if is_down('m') and self.texte_liste['end_balise']['pos'][1] <= 0 : #descendre
-			delta = 0.01
+			delta = 0.04
 		elif is_down('p') and self.texte_liste['start_balise']['pos'][1] >= 0 : #monter
-			delta = -0.01
+			delta = -0.04
 
 		if is_down('a') :
-			self.c  += 0.1*10
+			self.c  += 0.001
 			self.load_chapter(1)
 			
 
 		if is_down('q') :
-			self.c -= 0.1*10
+			self.c -= 0.001
 			self.load_chapter(1)
 			
 
 		if is_down('z') :
-			self.k += 0.1
+			self.k += 0.01
 			self.load_chapter(1)
 			
 
 		if is_down('s') :
-			self.k -= 0.1
+			self.k -= 0.01
 			self.load_chapter(1)
 			
 
@@ -88,19 +116,20 @@ class Myapp(ShowBase) :
 
 
 		if delta != 0 :
+			print("mouv")
 			for i in self.texte_liste :
 				
 				curr = self.texte_liste[i]
 
 				if isinstance(curr,DirectButton) :
-					curr.setPos(0,0,curr.getPos()[2]+delta)
+					curr.setPos(curr.getPos()[0],0,curr.getPos()[2]+delta)
 					continue
 
 				elif isinstance(curr,OnscreenImage) :
 					curr['pos'] = (curr['pos'][0], 0 , curr['pos'][2]+delta)
 					continue
 
-				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)
+				curr['pos'] = (curr['pos'][0], curr['pos'][1]+delta ,0)  # ONSCREENTEXT
 
 
 		return Task.cont
@@ -132,6 +161,7 @@ class Myapp(ShowBase) :
 		"""
 		self.clear_all()
 
+
 		with  open("chapitres/"+str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
 			self.show(texte,chap_id)
@@ -139,7 +169,7 @@ class Myapp(ShowBase) :
 
 
 		# WIDGET GUI PART ------------------------------------------------------------------------------------
-		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.8,2),frameColor=(0,0,0,255))
+		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.825,2),frameColor=(206/255,6/255,6/255,1))  # 206,6,6,255
 		self.widget['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
 
@@ -150,10 +180,10 @@ class Myapp(ShowBase) :
 														scale=0.1,pos=(0.8,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
 		self.widget["vol_plus_button"] = DirectButton(text="+",command = lambda : self.mySound.setVolume(self.mySound.getVolume()+0.1) ,
-														scale=0.1,pos=(1,0,0.9),frameSize=(-1,1,-0.5,0.9))
+														scale=0.1,pos=(1.1,0,0.9),frameSize=(-0.7,0.7,-0.5,0.9))
 
 		self.widget["vol_moins_button"] = DirectButton(text="-",command =lambda : self.mySound.setVolume(self.mySound.getVolume()-0.1)  ,
-														scale=0.1,pos=(0.6,0,0.9),frameSize=(-1,1,-0.5,0.9))
+														scale=0.1,pos=(0.5,0,0.9),frameSize=(-0.7,0.7,-0.5,0.9))
 
 		# ---------------------------------------------------------------------------------------------------------
 
@@ -224,26 +254,27 @@ class Myapp(ShowBase) :
 									scale,
 									-next_ligne_pos)
 
+					if text[borne1+1] == "3" :
+						next_ligne_pos += 1
+
+					next_ligne_pos += self.padding*nbr_ligne + scale*self.c*nbr_ligne
+
+
+				elif text[borne1+1] == 'i' :  # IMAGE
+
+					path = f"images/{chap_id}{text[borne1+3:borne2]}.png"
+					im = get_image_size(path)
 				
-				elif text[borne1+1] == 'i' :
-
-					next_ligne_pos += 0.5*self.k
-					self.load_image(text[borne1+3],-next_ligne_pos,para_nbr+1)
-					next_ligne_pos += 0.5*self.k  # TAILLE DE L4IMAGE     TESTER AVEC PLUSIEURS IMAGE LA TAILLE DU BTON
-
-					self.texte_liste[str(para_nbr)] = OnscreenText(text="")
-
-					para_nbr += 1
-					self.affiche(current_paragraphe,
-								para_nbr,
-								1,
-								-next_ligne_pos)
-					self.texte_liste[str(para_nbr)]['pos'] = (	50,
-																self.texte_liste[str(para_nbr)]['pos'][1],
-																0 )
+					next_ligne_pos += im[1]/im[0]*self.k
+					self.texte_liste[path] = OnscreenImage(image=path, pos=(0,0,-next_ligne_pos),scale=(1,0,1*im[1]/im[0]))
+					next_ligne_pos += im[1]/im[0]*self.k
 
 
-				next_ligne_pos += self.padding*nbr_ligne + scale/self.c*nbr_ligne
+
+					# -----------------------------------------------------------------
+
+
+				
 
 				# ---------------------------------------------------------
 
@@ -251,18 +282,19 @@ class Myapp(ShowBase) :
 				para_nbr += 1
 				borne1 , borne2 , borne3 , borne4 = None , None , None , None
 
+
+
 		self.texte_liste['end_balise'] = OnscreenText(text='',pos=(0,-next_ligne_pos,0))
 
-
 		if chap_id < 7 : # NOMBRE DE CHAP MAX
-			self.texte_liste['next_chap_button'] = DirectButton(text='Next',pos=(0.5,-next_ligne_pos,0),
+			self.texte_liste['next_chap_button'] = DirectButton(text='Next',pos=(1,0,-next_ligne_pos-0.3),
 															command = self.load_chapter,extraArgs=[chap_id+1],
-															scale=0.3)
+															scale=0.1)
 
 		if chap_id > 1 : # NOMBRE DE CHAP MINI
-			self.texte_liste['prev_chap_button'] = DirectButton(text='prev',pos=(-0.5,-next_ligne_pos,0),
+			self.texte_liste['prev_chap_button'] = DirectButton(text='prev',pos=(-1,0,-next_ligne_pos-0.3),
 															command = self.load_chapter,extraArgs=[chap_id-1],
-															scale=0.3)
+															scale=0.1)
 
 
 	def affiche(self,texte:str,name:int,scale:int,position:int) :
@@ -274,6 +306,7 @@ class Myapp(ShowBase) :
 		position : nombre négatif pour indiquer la position en Y du texte
 		"""
 
+		framme = (0,0,0,0)
 		if scale > 1 :
 			pos = TextNode.ACenter
 			posx = 0
@@ -281,11 +314,15 @@ class Myapp(ShowBase) :
 			pos = TextNode.ALeft
 			posx = -1
 
+		if scale == 2 :
+			framme = (0,0,0,255)
+
 		self.texte_liste[str(name)] = OnscreenText(	text = texte ,
 														pos = (	posx ,
 																position) ,
 														scale = 0.05+scale/100 ,
-														align = pos )
+														align = pos ,
+														frame=framme)
 
 
 	def partitionner(self,string) :
@@ -316,19 +353,12 @@ class Myapp(ShowBase) :
 		return string, nbr_ligne
 
 
-	def load_image(self,id_photo,pos,args) :  # A REFAIRE
-
-		path = "images/"+id_photo+".png"
-		self.texte_liste[path] = OnscreenImage(image=path, pos=(0, 0,pos),scale=0.3)
-
-
 	def load_menu(self) :
 		"""
 		Affiche le menu principal de l'app
 		"""
 
 		self.clear_all()
-		self.taskMgr.remove('loop')
 
 		
 
@@ -337,6 +367,20 @@ class Myapp(ShowBase) :
 		
 		self.widget['exit_button'] = 		DirectButton(text="quitter",command=self.close_app,
 										scale=0.1,pos=(0,0,-0.6),frameSize=(-2,2,-0.5,0.9))#left right bottom top
+
+
+		texte = 'CNRD BOUTET'
+		self.texte_liste['titre'] = OnscreenText(		text = texte ,
+														pos = (	0 ,
+																0.5) ,
+														scale = 0.05+6/100)
+
+		texte = "Une personne\ndeux personnes\ntrois persernne\nquatre personne"
+		self.texte_liste['texte_pres'] = OnscreenText(	text = texte ,
+														pos = (	-1 ,
+																0) ,
+														scale = 0.05+3/100 ,
+														align = TextNode.ALeft)
 	
 
 	def load_chapter_menu(self) :
@@ -344,15 +388,24 @@ class Myapp(ShowBase) :
 		Menu pour selectionner un chapitre en particuler
 		"""
 
+		name = {1:"Exode et Défaite",
+				2:"Mise au pas de l'école",
+				3:"vichy : un état repressif",
+				4:"Résistance",
+				5:"Libération",
+				6:"Epilogue",
+				7:"Sources"}
+
 		self.clear_all()
 
-		onlyfiles = [f for f in listdir("chapitres") if isfile(join("chapitres", f))]
-		print(onlyfiles)
 
-		for i in range(len(onlyfiles)) :
-			self.widget['button_chap'+str(i+1)] = DirectButton(	text=onlyfiles[i],scale=0.1,pos=(0,0,-0.2*i),
-																frameSize=(-2,2,-0.5,0.9),
+		for i in range(7) :
+			self.widget['button_chap'+str(i+1)] = DirectButton(	text=name[i+1],scale=0.1,pos=(0,0,-0.2*i+0.5),
+																frameSize=(-5.8,5.8,-0.5,0.9),
 																command=self.load_chapter,extraArgs=[i+1] )
+
+		self.widget['return_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0.9),frameSize=(-2,2,-0.5,0.9))
+
 
 
 	def close_app(self) :

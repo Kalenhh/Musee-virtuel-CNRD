@@ -1,31 +1,65 @@
 #coding:utf-8
 
-text = "Je m’appelle André BESSIERE et j’ai 17 ans. Je commence ce carnet aujourd’hui, 30 août 1939. Qu’est-ce que je vais pouvoir raconter, à part qu’il fait terriblement chaud. La première idée qui me vient à l’esprit et qui me fait écrire est le silence gêné de mes parents quand j’évoque la situation actuelle. Je ne suis pas fou, j’ai 13 ans et je suis un des meilleurs de ma classe. La presse le montre bien, la situation est très tendue et je vois les adultes se parler en douce pour ne pas que j’entende. Mais je sens bien au collège que la situation a changé depuis très peu de temps…"
+from direct.showbase.ShowBase import ShowBase
+from direct.task import Task
+from direct.actor.Actor import Actor
+from direct.interval.IntervalGlobal import Sequence
+from direct.gui.DirectGui import *
+from panda3d.core import VBase4 , NodePath , TextNode, CardMaker
 
-def format(string) :
+from direct.gui.OnscreenText import OnscreenText
 
-	print(string)
-	string.replace(" ","\n")
-	print(string)
+from time import sleep
 
-	formated_text = ""
-	max_char = 30
-	c = 0 
-	last_space = 0 # index
+import struct
+import imghdr
 
-	for i in range(len(string)) :
+def get_image_size(fname):
+	'''Determine the image type of fhandle and return its size.
+	from draco'''
+	with open(fname, 'rb') as fhandle:
+		head = fhandle.read(24)
+		if len(head) != 24:
+			return
+		if imghdr.what(fname) == 'png':
+			check = struct.unpack('>i', head[4:8])[0]
+			if check != 0x0d0a1a0a:
+				return
+			width, height = struct.unpack('>ii', head[16:24])
+		elif imghdr.what(fname) == 'gif':
+			width, height = struct.unpack('<HH', head[6:10])
+		elif imghdr.what(fname) == 'jpeg':
+			try:
+				fhandle.seek(0) # Read 0xff next
+				size = 2
+				ftype = 0
+				while not 0xc0 <= ftype <= 0xcf:
+					fhandle.seek(size, 1)
+					byte = fhandle.read(1)
+					while ord(byte) == 0xff:
+						byte = fhandle.read(1)
+					ftype = ord(byte)
+					size = struct.unpack('>H', fhandle.read(2))[0] - 2
+				# We are at a SOFn block
+				fhandle.seek(1, 1)  # Skip `precision' byte.
+				height, width = struct.unpack('>HH', fhandle.read(4))
+			except Exception: #IGNORE:W0703
+				return
+		else:
+			return
+		return width, height
 
-		c += 1
 
-		if string[i] == " " and c > max_char :
-			string = string[:i] + "\n" + string[i+1:]
-			c = 0
+print(get_image_size("images/28.png"))
 
+class Myapp(ShowBase) :
+	def __init__(self) :
+		ShowBase.__init__(self)
+		
+		k = 1
+		path = "images/28.png"
+		im = get_image_size(path)
+		a = DirectButton(text="test",frameColor=(255,6,6,1))
 
-
-
-
-
-	return string
-
-print(format(text))
+b = Myapp()
+b.run()
