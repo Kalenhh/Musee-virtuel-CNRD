@@ -1,26 +1,27 @@
-LIBERATION
+<3>LIBERATION<3>
 
 
-<i=1>IMAGE1<i=1>
+<i=1><i>
 
 
-<i=2>IMAGE2<i=2>
+<i=2><i>
+<1>Photographies de la libération de Lunéville (coll. Privée)<1>
 
 
 <1>En septembre 1944, trois chars américains arrivent à Varangéville pour rouler jusqu’à Lunéville et les soldats lancent des bonbons, du chocolat et des chewing-gum aux enfants. Renée Marcot en gardera un souvenir très ému.<1>
 
 
-<1>8 mai 1945<1>
+<2>8 mai 1945µµ
 
-<1>Gloire à nos professeurs !<1>
+Gloire à nos professeurs!µµ
 
-<1>Nous sommes enfin libres et si c’est arrivé, c’est aussi grâce à eux, qui nous ont inculqué les valeurs de la République et qui n’ont jamais cédé face à Vichy.<1>
-
-
-<i=3>IMAGE3<i=3>
+Nous sommes enfin libres et si c’est arrivé, c’est aussi grâce à eux, qui nous ont inculqué les valeurs de la République et qui n’ont jamais cédé face à Vichy.<2>
 
 
-<i=4>IMAGE4<i=4>
+<i=3><i>
+
+
+<i=4><i>
 
 
 <1>Ces images et récits tirés du lycée Lalande montrent à quel point un professeur peut engager, parfois indirectement, ses élèves vers la compréhension de ce qui l’entoure. Si seulement deux établissements en France ont eu droit à la médaille de la Résistance française (le lycée Lalande et l’université de Strasbourg), bien d’autres lieux, tirés par l’exemple des enseignants auraient pu prétendre à cette médaille.<1>
@@ -35,10 +36,10 @@ LIBERATION
 <1>Enfin, il faut penser au professeur et directeur d’école Arthur Varoquaux (1879/1967), juste parmi les nations pour avoir sauvé des juifs.<1>
 
 
-<i=5>IMAGE5<i=5>
+<i=5><i>
 
 
-<1>Charles Fiterman, né en 1933, ancien ministre français, a été caché durant la guerre à Marlhes (département de la Loire). Son père est mort à Auschwitz, mais lui a survécu. Il a été caché dans une école catholique qui l’a confié à des agriculteurs en 1942. Il dit souvent que cela l’a « marqué à vie ».<1> 
+<1>Charles Fiterman, né en 1933, ancien ministre français, a été caché durant la guerre à Marlhes (département de la Loire). Son père est mort à Auschwitz, mais lui a survécu. Il a été caché dans une école catholique qui l’a confié à des agriculteurs en 1942. Il dit souvent que cela l’a «marqué à vie».<1> 
 
 
 <1>Ce sont aussi ces professeurs qui ont permis aussi indirectement, très certainement, à ces premiers jeunes de Nancy de se soulever contre l’occupant, même s’ils sont capturés en novembre 1940. Douze seront emprisonnés et 4 condamnés à mort mais graciés en dernière minute.<1>
@@ -47,44 +48,44 @@ LIBERATION
 <1>Ce sont les méthodes, action, presse, protection, qui ont rendus certains professeurs célèbres. Parmi eux, on pense à Jacques Renouvin (1905/1944), qui dès 1938, n’a pas hésité à gifler publiquement un autre homme politique qui avait envoyé un télégramme de félicitation à Adolf Hitler. La jeunesse est souvent marquée par des gestes forts.<1> 
 
 
-<1>Marc Bloch par exemple (1886/1944) est connu pour son courage durant la première guerre mondiale où il reçoit de nombreuses décorations mais aussi parce que, résistant, il est mort sans rien dire. Il avait déjà vu la défaite de la France dès 1940 et après il a prévu la fin de l’Allemagne nazie, ce qui a impressionné beaucoup à son époque. Il est mort fusillé en criant « vive la France ! ».<1> 
+<1>Marc Bloch par exemple (1886/1944) est connu pour son courage durant la première guerre mondiale où il reçoit de nombreuses décorations mais aussi parce que, résistant, il est mort sans rien dire. Il avait déjà vu la défaite de la France dès 1940 et après il a prévu la fin de l’Allemagne nazie, ce qui a impressionné beaucoup à son époque. Il est mort fusillé en criant «vive la France!».<1> 
 
 
-<3>20 décembre 1945<3> 
+<2>20 décembre 1945µµ
 
-<2>Je suis surpris de voir qu’ici en France, l’école que j’avais quitté semble enterrée. On a tourné la page. Mon père est content de voir que des professeurs ont longuement réfléchi à ce que serait l’école d’aujourd’hui, même si certains ne l’ont jamais vue.<2>
+Je suis surpris de voir qu’ici en France, l’école que j’avais quitté semble enterrée. On a tourné la page. Mon père est content de voir que des professeurs ont longuement réfléchi à ce que serait l’école d’aujourd’hui, même si certains ne l’ont jamais vue.<2>
 
 
-<1>Il a raison, et Marc Bloch est de ceux-là. Rédacteur en chef de la revue Les Cahiers politiques de la France combattante, il est chargé d’imaginer l’école d’après la guerre. Il est alors violemment opposé au système d’avant-guerre, qui ne crée pas des gens curieux mais provoque « la crainte de toute initiative, chez les maîtres comme chez les élèves ; la négation de toute libre curiosité ; le culte du succès substitué au goût de la connaissance.» Il est contre « une des tares les plus pernicieuses de notre système actuel : celui de bachotage ». C’est très moderne<1>
+<1>Il a raison, et Marc Bloch est de ceux-là. Rédacteur en chef de la revue Les Cahiers politiques de la France combattante, il est chargé d’imaginer l’école d’après la guerre. Il est alors violemment opposé au système d’avant-guerre, qui ne crée pas des gens curieux mais provoque « la crainte de toute initiative, chez les maîtres comme chez les élèves; la négation de toute libre curiosité; le culte du succès substitué au goût de la connaissance.» Il est contre «une des tares les plus pernicieuses de notre système actuel: celui de bachotage». C’est très moderne<1>
 
 
 <1>Il est suivi par Jean zay, ancien ministre de l’Education du Front Populaire, qui a été fusillé en prison pour ses origines juives et son refus de suivre Vichy. Des notes prouvent qu’il a voulu organiser autrement l’école après la guerre.<1>
 
 
-<3>20 août 1948<3>
+<2>20 août 1948
 
-<2>Ca y est, je reprends mes études ! Je vais m’inscrire dans les cours d’ingénieur même si ce n’est pas mon premier choix. J’aurais aimé être officier pour continuer à servir mon pays<2>
+Ca y est, je reprends mes études! Je vais m’inscrire dans les cours d’ingénieur même si ce n’est pas mon premier choix. J’aurais aimé être officier pour continuer à servir mon pays<2>
 
 
 <1>Oui, André est tellement marqué par son passage dans la résistance qu’il veut poursuivre mais sa santé ne le lui permet plus. Il entre à nouveau à l’école.<1>
 
 
-<1>Cette école est touchée par les volontés de réformes venues de la résistance. Dans la résistance intérieure, de nombreux journaux évoquent ce qu’ils voudraient pour la fin de la guerre. Mais les résistants intérieurs n’ont souvent pas le temps ou les moyens de s’occuper de ces réformes. Que voulaient-ils ?<1>
+<1>Cette école est touchée par les volontés de réformes venues de la résistance. Dans la résistance intérieure, de nombreux journaux évoquent ce qu’ils voudraient pour la fin de la guerre. Mais les résistants intérieurs n’ont souvent pas le temps ou les moyens de s’occuper de ces réformes. Que voulaient-ils ?<1>
 
 
-<1>Ils voulaient sortir d’une école trop fermée aux gens riches. Cette école était trop « fermée » pour eux. Ils voulaient qu’elle soit capable de travailler sur la vie de tous les jours. L’accumulation ridicule de savoirs les gênait. Le maître devait se montrer plus proche de l’élève et favoriser son épanouissement et pas seulement ses connaissances. Marc Bloch est allé encore plus loin car il voulait carrément enlever les notes de 0 à 20 pour les changer en appréciations. Au début de 1944, Essor, le périodique d’un réseau de résistance proposa de donner plus de missions aux familles à l’intérieur de l’école pour les association au travail des professeurs.<1>
+<1>Ils voulaient sortir d’une école trop fermée aux gens riches. Cette école était trop «fermée» pour eux. Ils voulaient qu’elle soit capable de travailler sur la vie de tous les jours. L’accumulation ridicule de savoirs les gênait. Le maître devait se montrer plus proche de l’élève et favoriser son épanouissement et pas seulement ses connaissances. Marc Bloch est allé encore plus loin car il voulait carrément enlever les notes de 0 à 20 pour les changer en appréciations. Au début de 1944, Essor, le périodique d’un réseau de résistance proposa de donner plus de missions aux familles à l’intérieur de l’école pour les association au travail des professeurs.<1>
 
 
-<1>C’est en Angleterre, avec la France Libre dirigée par de Gaulle, où on voit se développer les plans les plus originaux. Dès l’été 1940, Charles de Gaulle confie à René Cassin, très grand juriste la présidence d’une « commission d'étude des problèmes intellectuels et de l'enseignement ». Elle est dirigée par Joseph Cathala, professeur de chimie à l'Université de Toulouse avant la guerre. Cette commission travailla de juillet 1942 à juillet 1943. Plus tard, c’est au tour de René Capitant, commissaire à l'Education nationale, de s’occuper d’une « commission de réforme de l'enseignement » de mars à août 1944. Donc le travail a été très long.<1>
+<1>C’est en Angleterre, avec la France Libre dirigée par de Gaulle, où on voit se développer les plans les plus originaux. Dès l’été 1940, Charles de Gaulle confie à René Cassin, très grand juriste la présidence d’une commission d'étude des problèmes intellectuels et de l'enseignement». Elle est dirigée par Joseph Cathala, professeur de chimie à l'Université de Toulouse avant la guerre. Cette commission travailla de juillet 1942 à juillet 1943. Plus tard, c’est au tour de René Capitant, commissaire à l'Education nationale, de s’occuper d’une «commission de réforme de l'enseignement» de mars à août 1944. Donc le travail a été très long.<1>
 
 
-<3>Quels sont ses résultats ?<3>
+<1>Quels sont ses résultats?<1>
  
 
-<1>L’idée de développer la culture chez tous les Français devait passer pour eux par l’éducation, donc l’école. Donc il faut que TOUS les Français puissent y avoir accès. Les penseurs ont voulu donc mettre en place ce qu’on appelle l’école unique. Avant, il fallait des diplômes pour passer d’un niveau à l’autre (primaire, secondaire, université) et aussi c’était cher. A partir de la guerre, ces penseurs demandent une école ave un passage direct entre les trois. L’enseignement serait alors obligatoire jusqu’au lycée. « Par expérience, nous avons la conviction que tous les enfants peuvent suivre des études secondaires ». C’est ce que dit le groupe Cathala. Un autre rapport, le dernier, d’août 1944 va encore plus loin. C’est le rapport Durry : âge de l'obligation scolaire porté à 16 ou 18 ans ; gratuité totale de l'enseignement public ; unification des lycées, des écoles primaires supérieures et des cours complémentaires ; suppression des barrières propres à l'enseignement secondaire traditionnel. On parle même de supprimer le baccalauréat ! D’autres proposent un contrôle continu.<1>
+<1>L’idée de développer la culture chez tous les Français devait passer pour eux par l’éducation, donc l’école. Donc il faut que TOUS les Français puissent y avoir accès. Les penseurs ont voulu donc mettre en place ce qu’on appelle l’école unique. Avant, il fallait des diplômes pour passer d’un niveau à l’autre (primaire, secondaire, université) et aussi c’était cher. A partir de la guerre, ces penseurs demandent une école ave un passage direct entre les trois. L’enseignement serait alors obligatoire jusqu’au lycée. «Par expérience, nous avons la conviction que tous les enfants peuvent suivre des études secondaires». C’est ce que dit le groupe Cathala. Un autre rapport, le dernier, d’août 1944 va encore plus loin. C’est le rapport Durry: âge de l'obligation scolaire porté à 16 ou 18 ans; gratuité totale de l'enseignement public; unification des lycées, des écoles primaires supérieures et des cours complémentaires; suppression des barrières propres à l'enseignement secondaire traditionnel. On parle même de supprimer le baccalauréat! D’autres proposent un contrôle continu.<1>
 
 
-<1>Donc, c’est dans ce climat de changement que le GPRF arrive au pouvoir. Il décide immédiatement de suspendre tout ce qui ressemblait au régime de Vichy : portraits, programmes, livres interdits à nouveaux autorisés… Les professeurs qui ont montré un trop grand attachement à Pétain sont sanctionnés (4000 en tout !) et 1100 sont renvoyés. La constitution de la IVème République entre en fonction le 27 octobre 1946 et elle n’oublie pas l’éducation.<1>
+<1>Donc, c’est dans ce climat de changement que le GPRF arrive au pouvoir. Il décide immédiatement de suspendre tout ce qui ressemblait au régime de Vichy: portraits, programmes, livres interdits à nouveaux autorisés… Les professeurs qui ont montré un trop grand attachement à Pétain sont sanctionnés (4000 en tout!) et 1100 sont renvoyés. La constitution de la IVème République entre en fonction le 27 octobre 1946 et elle n’oublie pas l’éducation.<1>
  
 
 <1>Mais malheureusement, les décisions prises sont trop en avance sur leur temps. En novembre 1944, René Capitant, devenu ministre de l’Éducation nationale, nomme une Commission ministérielle d’études pour la réforme de l’Enseignement. Présidée par Paul Langevin puis par Henri Wallon, deux professeurs au Collège de France, la commission élabore un projet global de réforme de l’Enseignement et du système éducatif français qui défend une « École unique ».<1>
@@ -92,56 +93,60 @@ LIBERATION
 
 <1>Extraits de l’introduction du plan Langevin-Wallon, projet global de réforme de l’enseignement et du système éducatif français,1947, réédition commentée, 2002 © Editions Mille et une nuits.<1>
 
-<1>Tous les enfants, quelles que soient leurs origines familiales, sociales, ethniques, ont un droit égal au développement maximum que leur personnalité comporte. Ils ne doivent trouver d’autre limitation que celle de leurs aptitudes. La démocratisation de l’enseignement mettra chacun à la place que lui assignent ses aptitudes, pour le plus grand bien de tous.<1> 
+<1>° Tous les enfants, quelles que soient leurs origines familiales, sociales, ethniques, ont un droit égal au développement maximum que leur personnalité comporte. Ils ne doivent trouver d’autre limitation que celle de leurs aptitudes. La démocratisation de l’enseignement mettra chacun à la place que lui assignent ses aptitudes, pour le plus grand bien de tous.<1> 
 
-<1>L’effectif des classes devra être tel que le maître puisse utilement s’occuper de chaque élève : il ne devra en aucun cas dépasser 25.<1>
+<1>° L’effectif des classes devra être tel que le maître puisse utilement s’occuper de chaque élève: il ne devra en aucun cas dépasser 25.<1>
 
-<1>L’enseignement sera obligatoire pour tous les enfants de 6 à 18 ans. L’obligation scolaire devra donc être prolongée de 4 années.<1>
+<1>° L’enseignement sera obligatoire pour tous les enfants de 6 à 18 ans. L’obligation scolaire devra donc être prolongée de 4 années.<1>
 
-<1>L’enseignement public doit être gratuit à tous les degrés.<1> 
+<1>° L’enseignement public doit être gratuit à tous les degrés.<1> 
 
 
 <1>Mais lors de sa présentation en 1947 le « plan Langevin-Wallon », n’est pas retenu. Par contre, son esprit souffle sur la France et la Vième République, avec la loi Berthoin de 1959 puis la loi Fouchet de 1963 commence à mettre en pratique ces propositions. C’est en 1975 que la loi Haby, un ministre originaire de Dombasle en Meurte-et-Moselle, professeur, qui définit l’école unique. Et aujourd’hui, l’idée du contrôle continu pour le bac a été institué.<1>
 
 
-<3>12 octobre 1948<3>
+<2>12 octobre 1948µµ
 
-<2>Je viens de rentrer dans mon école d’ingénieur. Mon dieu, mon pauvre carnet, si tu voyais son état, plus fripée que toi mon vieux.<2>
+Je viens de rentrer dans mon école d’ingénieur. Mon dieu, mon pauvre carnet, si tu voyais son état, plus fripée que toi mon vieux.µµ
 
-<1>Ici on manque… de presque tout. J’ai lu avec intérêt dans les revues d’enseignement que mon père garde à la maison, les projets de réforme de l’école. Mais avant de tout réinventé, il faudra tout reconstruire.<1> 
+Ici on manque… de presque tout. J’ai lu avec intérêt dans les revues d’enseignement que mon père garde à la maison, les projets de réforme de l’école. Mais avant de tout réinventé, il faudra tout reconstruire.µµ
 
-<1>Et c’est pour cela que je suis ici !<1>
+Et c’est pour cela que je suis ici!<2>
 
 
 <1>Encore une fois, André ne s’est pas trompé. Si de nombreux projets n’ont pu être réalisés sur le moment, c’est que l’école est dans un sale état.<1>
 
 
-<1>Extrait d’une video : voir le son de la rentrée d’après-guerre !<1>
+<1>Extrait d’une video: voir le son de la rentrée d’après-guerre!<1>
+
+<1> <1>
+<b><b>
+<1> <1>
+<1> <1>
+
+<1>Dans de nombreuses régions, comme la nôtre, les destructions sont très courantes, soit que les bombardements ont détruit les bâtiments, soit que ces derniers ont été occupés par des troupes pour leur taille. Et là, ce n’est pas mieux!<1>
 
 
-<1>Dans de nombreuses régions, comme la nôtre, les destructions sont très courantes, soit que les bombardements ont détruit les bâtiments, soit que ces derniers ont été occupés par des troupes pour leur taille. Et là, ce n’est pas mieux !<1>
-
-
-<i=6>IMAGE6<i=6>
+<i=6><i>
 
 
 <1>Cette autorisation pour avoir une aide très forte à la suite de la destruction d’une école, présente aux archives départementales, le montre bien. Il faut noter que dans ce cas, celui qui donne, ou plutôt celle, est une institutrice qui a fait don de cette somme à l’école. Cet argent venait d’une quête demandée aux élèves de sa classe.<1>
 
 
-<1>Si la reprise de l’école a lieu officiellement le 2 octobre 1944, elle ne peut s’effectuer que dans une partie du pays. Entre 1939 et 1945, 10 000 établissements ont en effet été détruits ou très endommagés par les bombardements. C’est pourquoi, la rentrée ne peut s’effectuer qu’à Paris et au sud de la Loire. Contrairement à la Normandie, au Nord-Pas-de-Calais, au grand Ouest et bien sûr à l’Alsace-Moselle où l’armée nazie est encore présente. Dans ces régions, la rentrée ne s'effectuera qu’en septembre 1945.<1>
+<1>Si la reprise de l’école a lieu officiellement le 2 octobre 1944, elle ne peut s’effectuer que dans une partie du pays. Entre 1939 et 1945, 10000 établissements ont en effet été détruits ou très endommagés par les bombardements. C’est pourquoi, la rentrée ne peut s’effectuer qu’à Paris et au sud de la Loire. Contrairement à la Normandie, au Nord-Pas-de-Calais, au grand Ouest et bien sûr à l’Alsace-Moselle où l’armée nazie est encore présente. Dans ces régions, la rentrée ne s'effectuera qu’en septembre 1945.<1>
 
-<1>Dans la Manche, durement frappée pendant le Débarquement, la moitié des 1 057 écoles ont été détruites pendant la guerre. Entre 1946 et 1949, certains instituteurs dans les écoles normandes utilisent parfois des caisses de munition en guise de bancs dans les classes. Dans les classes, on manque également de chauffage. D'autant que les hivers 1944 et 1945 ont été particulièrement froids.<1>
-
-
-<i=7>IMAGE7<i=7>
+<1>Dans la Manche, durement frappée pendant le Débarquement, la moitié des 1057 écoles ont été détruites pendant la guerre. Entre 1946 et 1949, certains instituteurs dans les écoles normandes utilisent parfois des caisses de munition en guise de bancs dans les classes. Dans les classes, on manque également de chauffage. D'autant que les hivers 1944 et 1945 ont été particulièrement froids.<1>
 
 
-<i=8>IMAGE8<i=8>
+<i=7><i>
 
 
-<1>Alors qu’il est par ailleurs entouré des soins les plus attentifs, que ses désirs sont satisfaits, dès qu’il tente d’aborder sa déportation, son père lui coupe immédiatement la parole : « ne parle plus de tout cela…c’est fini maintenant… On verra plus tard. »<1>
+<i=8><i>
 
-<1>Sa mère, si volubile jadis, lui parle peu mais reste toujours attentive, l’observant avec l’appréhension permanente de le retrouver à chaque instant plus mal qu’au précédent. Quand à son beau-frère, il avait été catégorique : « A voir son état, on a tout compris, c’est pas la peine de parler. »<1>
+
+<1>Alors qu’il est par ailleurs entouré des soins les plus attentifs, que ses désirs sont satisfaits, dès qu’il tente d’aborder sa déportation, son père lui coupe immédiatement la parole: «ne parle plus de tout cela…c’est fini maintenant… On verra plus tard.»<1>
+
+<1>Sa mère, si volubile jadis, lui parle peu mais reste toujours attentive, l’observant avec l’appréhension permanente de le retrouver à chaque instant plus mal qu’au précédent. Quand à son beau-frère, il avait été catégorique: «A voir son état, on a tout compris, c’est pas la peine de parler.»<1>
 
 <1>Ses pensées, qu’il n’en finit pas de ressasser, l’amènent à ressentir inconsciemment que cette faculté de communication qui le réduit au silence avec les siens le prive de la joie totale d’avoir échappé à l’enfer concentrationnaire.<1>
 
@@ -149,28 +154,28 @@ LIBERATION
 <1>Ces quelques lignes ont été écrites par André Bessière, non pas dans son carnet mais dans un livre, Revivre après. L’impossible oubli de la déportation, Paris, éditions du Félin, 2006. Elles montrent bien que pour une grande majorité d’enfants, et leurs parents, le retour à la normale sera long. Après son arrestation pour faits de résistance, André est conduit à Auschwitz puis le 12 mai 1944 à Buchenwald où il travaille pour une usine d’armement. Il se lie d’amitié avec le poète et écrivain Robert Desnos qui meurt d’épuisement. Lui-même, dans un état faible, est évacué dans un autre camp puis libéré.<1> 
 
 
-<1>Mais le traumatisme est là. Le premier est lié à l’Exode et aux enfants perdus. Bernadette avait neuf ans lorsqu’elle écrivit en 1948 : « Le souvenir de cette guerre qui reste le plus précis dans ma mémoire est celui du bombardement des usines Renault, le premier auquel j’ai assisté. » Sa famille vivait tout près, à Issy-les-Moulineaux. Lorsque les explosions commencèrent, elle alla avec son petit frère trouver refuge dans le lit de ses parents. Et deux heures plus tard, lorsque les attaques cessèrent : « Ahurie de tout ce vacarme infernal, fermant les yeux, serrant très fort la main de mon petit frère qui pleure et qui grogne, je m’endors, avec ce bruit dans ma tête. » C’était en 1943, car à partir de là les alliés bombardent aussi beaucoup la France. Des enfants moururent au cours de ces attaques. Cela explique que le nombre de civils tués (360 000) ait été supérieur à celui des militaires (250 000). à la fin de la guerre, on estimait le nombre d’enfants sans-abri à environ 1,3 million.<1> 
+<1>Mais le traumatisme est là. Le premier est lié à l’Exode et aux enfants perdus. Bernadette avait neuf ans lorsqu’elle écrivit en 1948: «Le souvenir de cette guerre qui reste le plus précis dans ma mémoire est celui du bombardement des usines Renault, le premier auquel j’ai assisté.» Sa famille vivait tout près, à Issy-les-Moulineaux. Lorsque les explosions commencèrent, elle alla avec son petit frère trouver refuge dans le lit de ses parents. Et deux heures plus tard, lorsque les attaques cessèrent: «Ahurie de tout ce vacarme infernal, fermant les yeux, serrant très fort la main de mon petit frère qui pleure et qui grogne, je m’endors, avec ce bruit dans ma tête.» C’était en 1943, car à partir de là les alliés bombardent aussi beaucoup la France. Des enfants moururent au cours de ces attaques. Cela explique que le nombre de civils tués (360000) ait été supérieur à celui des militaires (250000). à la fin de la guerre, on estimait le nombre d’enfants sans-abri à environ 1,3 million.<1> 
 
 
-<1>Le deuxième vient des jeunes enfants qui « découvrent » leur père quand il revient des camps de prisonniers français en Allemagne (presque 2 millions de soldats)<1>
+<1>Le deuxième vient des jeunes enfants qui «découvrent» leur père quand il revient des camps de prisonniers français en Allemagne (presque 2 millions de soldats)<1>
 
 
-<1>Ensuite, on a la malnutrition qui augmente à la fin de la guerre. L’apport calorique était descendu en France à 1 500 calories par jour. En 1945, un rapport estimait que, pendant l’hiver 1945, les rations officielles tombèrent à 1 200 calories par jour. La ration quotidienne de pain allait de 275 à 350 grammes. L’étude montre aussi que les garçons étaient en 1945 plus petits de 3,5 centimètres qu’en 1935 et de même pour les filles avec une différence de 2,2 centimètres. Des colonies sanitaires sont alors mises en place. De nombreux enfants de Lorraine s’y rendent.<1>
+<1>Ensuite, on a la malnutrition qui augmente à la fin de la guerre. L’apport calorique était descendu en France à 1500 calories par jour. En 1945, un rapport estimait que, pendant l’hiver 1945, les rations officielles tombèrent à 1200 calories par jour. La ration quotidienne de pain allait de 275 à 350 grammes. L’étude montre aussi que les garçons étaient en 1945 plus petits de 3,5 centimètres qu’en 1935 et de même pour les filles avec une différence de 2,2 centimètres. Des colonies sanitaires sont alors mises en place. De nombreux enfants de Lorraine s’y rendent.<1>
 
 
-<i=9>IMAGE9<i=9>
+<i=9><i>
 
 
-<1>Il ne faut pas oublier qu’en France 11 400 enfants juifs ont été déportés dans les camps dont 2 000 avaient moins de 6 ans. Lazare, dont le père fut déporté à Auschwitz, raconte : « Je savais qu’il ne reviendrait pas. Mais dès la Libération, j’écoutais tous les soirs la liste des rescapés… si par chance… c’était épuisant. » D’autres déportés ne sont pas juifs comme ces 2508 jeunes de Meurthe-et-Moselle dont 53% sont rentrés.<1>
+<1>Il ne faut pas oublier qu’en France 11400 enfants juifs ont été déportés dans les camps dont 2000 avaient moins de 6 ans. Lazare, dont le père fut déporté à Auschwitz, raconte: «Je savais qu’il ne reviendrait pas. Mais dès la Libération, j’écoutais tous les soirs la liste des rescapés… si par chance… c’était épuisant.» D’autres déportés ne sont pas juifs comme ces 2508 jeunes de Meurthe-et-Moselle dont 53% sont rentrés.<1>
 
 
 <1>Malheureusement, cette situation va durer encore très longtemps.<1> 
 
 
-<i=10>IMAGE10<i=10>
+<i=10><i>
 
 
-<i=11>IMAGE11<i=11>
+<i=11><i>
 
 
 <1>Pourtant le gouvernement fait des efforts pour mettre ne place des dommages de guerre et faire réparer le plus rapidement possible. Mais comme le montre cette lettre, tout est très long.<1>
@@ -179,13 +184,13 @@ LIBERATION
 <1>Parfois l’école est transférée dans des lieux insolites, comme ce local à distiller.<1> 
 
 
-<i=12>IMAGE12<i=12>
+<i=12><i>
 
 
 <1>Parfois, dans la joie de la Libération, ce sont les professeurs et les élèves qui y travaillent.<1> 
 
 
-<i=13>IMAGE13<i=13>
+<i=13><i>
 
 
 <1>Voici les élèves déguisés en 1944 devant le lycée Boutet de Monvel. A cette date, le lycée, ancienne usine (tannerie) a accueilli les troupes allemandes pendant 4 ans puis pendant quelques mois un détachement de chars américains à la recherche de grands locaux.<1>
@@ -194,10 +199,10 @@ LIBERATION
 <1>Un vieux professeur de mathématique, mémoire du lycée, a commencé à cette époque à enseigner et a souvent raconté cet épisode à notre professeur. Les élèves réparaient tout, cela leur faisait leur enseignement professionnel. Ils sont même montés repérer le toit.<1> 
 
 
-<1>Juste après la guerre (vers 1950), on sent que les élèves et professeurs n’ont pas une cantine comme la nôtre aujourd’hui !<1>
+<1>Juste après la guerre (vers 1950), on sent que les élèves et professeurs n’ont pas une cantine comme la nôtre aujourd’hui!<1>
 
 
-<i=14>IMAGE14<i=14>
+<i=14><i>
 
 
 

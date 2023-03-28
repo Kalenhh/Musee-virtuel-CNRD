@@ -6,7 +6,7 @@ from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.DirectGui import *
-from panda3d.core import VBase4 , NodePath , TextNode
+from panda3d.core import VBase4 , NodePath , TextNode , WindowProperties
 
 from direct.gui.OnscreenText import OnscreenText
 
@@ -61,13 +61,13 @@ class Myapp(ShowBase) :
 
 		self.load_menu()
 
-		self.padding = 0.06
+		self.padding = 0.074
 		self.k = 1.19
-		self.c = 0.06
+		self.c = 0.0088
 
 		self.music_time = 0
 
-		self.taskMgr.add(self.loop,'loop')
+
 
 
 
@@ -76,43 +76,13 @@ class Myapp(ShowBase) :
 		is_down = base.mouseWatcherNode.is_button_down
 
 		#print(ShowBase.get_size(self))
-		print(self.padding,self.k,self.c)
+		#print(self.padding,self.k,self.c)
 
 		delta = 0
 		if is_down('m') and self.texte_liste['end_balise']['pos'][1] <= 0 : #descendre
 			delta = 0.04
 		elif is_down('p') and self.texte_liste['start_balise']['pos'][1] >= 0 : #monter
 			delta = -0.04
-
-		if is_down('a') :
-			self.c  += 0.001
-			self.load_chapter(1)
-			
-
-		if is_down('q') :
-			self.c -= 0.001
-			self.load_chapter(1)
-			
-
-		if is_down('z') :
-			self.k += 0.01
-			self.load_chapter(1)
-			
-
-		if is_down('s') :
-			self.k -= 0.01
-			self.load_chapter(1)
-			
-
-		if is_down('e') :
-			self.padding += 0.01
-			self.load_chapter(1)
-			
-
-		if is_down('d') :
-			self.padding -= 0.01
-			self.load_chapter(1)
-			
 
 
 		if delta != 0 :
@@ -151,6 +121,11 @@ class Myapp(ShowBase) :
 	def clear_all(self) :
 		self.clear_widget()
 		self.clear_text()
+		try :
+			self.mySound.stop()
+			self.extrait.stop()
+		except :
+			return None
 
 # --------------------------------
 
@@ -159,8 +134,11 @@ class Myapp(ShowBase) :
 		Charge le layout pour l'affichage d'un chapitre
 
 		"""
-		self.clear_all()
 
+		self.clear_all()
+		self.taskMgr.add(self.loop,'loop')
+
+		self.widget["bg"] = DirectFrame(image="images/bg.png",scale=2)
 
 		with  open("chapitres/"+str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
@@ -175,30 +153,61 @@ class Myapp(ShowBase) :
 
 		self.mySound = base.loader.loadSfx(f"sound/{chap_id}.wav")
 		self.mySound.setVolume(0.5)
+		self.mySound.setLoop(True)
 
-		self.widget["playsound_button"] = DirectButton(text="musique",command=self.musique,
-														scale=0.1,pos=(0.8,0,0.9),frameSize=(-2,2,-0.5,0.9))
+		nom_musique = {1:"La rengaine de la nuit",2:"Maréchal nous voilà !",3:"Maréchal nous voilà !",4:"Le chant des partisans",5:"Le chant de la 2ème DB",6:"La Marseillaise "}
 
-		self.widget["vol_plus_button"] = DirectButton(text="+",command = lambda : self.mySound.setVolume(self.mySound.getVolume()+0.1) ,
-														scale=0.1,pos=(1.1,0,0.9),frameSize=(-0.7,0.7,-0.5,0.9))
+		if chap_id < 7 :
+			self.widget["playsound_button"] = DirectButton(text="musique",command=self.musique,
+															scale=0.1,pos=(0.8,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
-		self.widget["vol_moins_button"] = DirectButton(text="-",command =lambda : self.mySound.setVolume(self.mySound.getVolume()-0.1)  ,
-														scale=0.1,pos=(0.5,0,0.9),frameSize=(-0.7,0.7,-0.5,0.9))
+			self.widget["vol_plus_button"] = DirectButton(text="+",command =  self.change_volume,extraArgs=[0.1],
+															scale=0.1,pos=(1.1,0,0.9),frameSize=(-0.7,0.7,-0.5,0.9))
+
+			self.widget["vol_moins_button"] = DirectButton(text="-",command = self.change_volume,extraArgs=[-0.1] ,
+															scale=0.1,pos=(0.5,0,0.9),frameSize=(-0.7,0.7,-0.5,0.9))
+
+			self.widget["nom_musique"] = OnscreenText(text=nom_musique[chap_id],scale=0.07,pos=(0,0.9,0))
+
+
 
 		# ---------------------------------------------------------------------------------------------------------
 
+	def change_volume(self,delta) :
+
+		if self.mySound.getVolume() == 0 and delta < 0 :
+			return None
+		elif self.mySound.getVolume() == 1 and delta > 0 :
+			return None
+		self.mySound.setVolume(round(self.mySound.getVolume()+delta,1))
+		print(self.mySound.getVolume())
 
 	def musique(self) :
-		print(self.mySound.status())
+
 		if self.mySound.status() == self.mySound.PLAYING :
-			self.music_time = self.mySound.getTime()
+			self.music_time = round(self.mySound.getTime(),0)
+
 			self.mySound.stop()
 		else :
-			self.mySound.play()
 			self.mySound.setTime(self.music_time)
 			self.mySound.play()
 
 			self.music_time = 0
+
+	def play_extrait(self) :
+		if self.mySound.status() == self.mySound.PLAYING :
+			self.music_time = round(self.mySound.getTime(),0)
+
+			self.mySound.stop()
+
+		try :
+			self.extrait.play()
+		except :
+			self.extrait = base.loader.loadSfx(f"sound/extrait.wav")
+
+			self.extrait.setVolume(1)
+			self.extrait.play()
+
 
 
 
@@ -239,6 +248,7 @@ class Myapp(ShowBase) :
 				borne4 = i 
 					
 				if text[borne1+1] != text[borne3+1] :
+					print(i)
 					raise Exception('Erreur dans le chapitre') # Erreur de mise en forme
 				
 
@@ -259,8 +269,20 @@ class Myapp(ShowBase) :
 
 					next_ligne_pos += self.padding*nbr_ligne + scale*self.c*nbr_ligne
 
+				if text[borne1+1] == 'n' :
 
-				elif text[borne1+1] == 'i' :  # IMAGE
+					scale = 1
+
+					self.affiche(	current_paragraphe,
+									para_nbr,
+									scale,
+									-next_ligne_pos)
+
+					self.texte_liste[str(para_nbr)]['bg'] = (69/255,148/255,138/255,1)
+
+					next_ligne_pos += self.padding*nbr_ligne + scale*self.c*nbr_ligne
+
+				if text[borne1+1] == 'i' :  # IMAGE
 
 					path = f"images/{chap_id}{text[borne1+3:borne2]}.png"
 					im = get_image_size(path)
@@ -269,7 +291,9 @@ class Myapp(ShowBase) :
 					self.texte_liste[path] = OnscreenImage(image=path, pos=(0,0,-next_ligne_pos),scale=(1,0,1*im[1]/im[0]))
 					next_ligne_pos += im[1]/im[0]*self.k
 
+				if text[borne1+1] == 'b' : # BALISE SP2CIALE
 
+					self.texte_liste["balise_spé"] = DirectButton(text="Extrait Audio",pos=(0,0,-next_ligne_pos),scale=0.1,command=self.play_extrait)
 
 					# -----------------------------------------------------------------
 
@@ -287,12 +311,16 @@ class Myapp(ShowBase) :
 		self.texte_liste['end_balise'] = OnscreenText(text='',pos=(0,-next_ligne_pos,0))
 
 		if chap_id < 7 : # NOMBRE DE CHAP MAX
-			self.texte_liste['next_chap_button'] = DirectButton(text='Next',pos=(1,0,-next_ligne_pos-0.3),
+			self.texte_liste['next_chap_button'] = DirectButton(text='Suivant',pos=(1,0,-next_ligne_pos-0.3),
 															command = self.load_chapter,extraArgs=[chap_id+1],
+															scale=0.1)
+		else :
+			self.texte_liste['final_quit'] = DirectButton(text='Quitter',pos=(1,0,-next_ligne_pos-0.3),
+															command = self.close_app,
 															scale=0.1)
 
 		if chap_id > 1 : # NOMBRE DE CHAP MINI
-			self.texte_liste['prev_chap_button'] = DirectButton(text='prev',pos=(-1,0,-next_ligne_pos-0.3),
+			self.texte_liste['prev_chap_button'] = DirectButton(text='Précédent',pos=(-1,0,-next_ligne_pos-0.3),
 															command = self.load_chapter,extraArgs=[chap_id-1],
 															scale=0.1)
 
@@ -317,6 +345,9 @@ class Myapp(ShowBase) :
 		if scale == 2 :
 			framme = (0,0,0,255)
 
+		if scale == 3 :
+			scale = 7
+
 		self.texte_liste[str(name)] = OnscreenText(	text = texte ,
 														pos = (	posx ,
 																position) ,
@@ -339,16 +370,20 @@ class Myapp(ShowBase) :
 		max_char = 70
 		c = 0 
 
-		nbr_ligne = 0
+		nbr_ligne = 1
 	
 		for i in range(len(string)) :
 
 			c += 1
 
-			if string[i] == " " and c > max_char :
+			if string[i] == " " and c > max_char or string[i] == "µ" :
 				string = string[:i] + "\n" + string[i+1:]
 				c = 0
 				nbr_ligne+= 1 
+
+			"""if string[i] == "£" :
+				string = string[:i] +"\t" +string[i+1:]"""
+
 
 		return string, nbr_ligne
 
@@ -359,28 +394,36 @@ class Myapp(ShowBase) :
 		"""
 
 		self.clear_all()
+		try :
+			self.taskMgr.remove('loop')
+		except :
+			pass
+
+
+		
+		
+		self.texte_liste['ecolier'] = OnscreenImage( image = "images/ecolier2.png",scale=0.7,pos=(1.1,0,-0.35))
+		self.widget['chapitre_button'] = 	DirectButton(image="images/cartable3.png",command=self.load_chapter_menu,
+										scale=(0.5,1,0.3),pos=(0,0,-0.2),relief="ridge")
+		
+		self.widget['exit_button'] = 		DirectButton(text="Quitter",command=self.close_app,
+										scale=0.1,pos=(0,0,-0.7),frameSize=(-2.2,2.2,-0.5,0.9))#left right bottom top
 
 		
 
-		self.widget['chapitre_button'] = 	DirectButton(text="chapitre",command=self.load_chapter_menu,
-										scale=0.1,pos=(0,0,-0.2),frameSize=(-2,2,-0.5,0.9))
-		
-		self.widget['exit_button'] = 		DirectButton(text="quitter",command=self.close_app,
-										scale=0.1,pos=(0,0,-0.6),frameSize=(-2,2,-0.5,0.9))#left right bottom top
-
-
-		texte = 'CNRD BOUTET'
+		texte = 'Lycée Jacques Marie Boutet de Monvel\nDes jours sombres aux lendemains\nde la Libération (1940-1945)'
 		self.texte_liste['titre'] = OnscreenText(		text = texte ,
 														pos = (	0 ,
-																0.5) ,
-														scale = 0.05+6/100)
+																0.7) ,
+														scale = 0.05+10/100)
 
-		texte = "Une personne\ndeux personnes\ntrois persernne\nquatre personne"
+		texte = "VERDIER Olivier\nBAUDOIN Mathieu\nBESSOT Thibault\nBOULEZ Jeanne\nCHARROY Stanislas\nDECAESTEKER Maximilien\nEHLING Kylian\nGRECO Lucas\nHEINDEL Clément\nINGARGIOLA Andréa\nLINEL Mahiné\nPIERRON Lilou\nRADET Gaëtan\nVUILLAUME Yann"
 		self.texte_liste['texte_pres'] = OnscreenText(	text = texte ,
-														pos = (	-1 ,
+														pos = (	-1.25 ,
 																0) ,
-														scale = 0.05+3/100 ,
+														scale = 0.05+2/100 ,
 														align = TextNode.ALeft)
+
 	
 
 	def load_chapter_menu(self) :
@@ -390,10 +433,10 @@ class Myapp(ShowBase) :
 
 		name = {1:"Exode et Défaite",
 				2:"Mise au pas de l'école",
-				3:"vichy : un état repressif",
+				3:"Vichy : un État répressif",
 				4:"Résistance",
 				5:"Libération",
-				6:"Epilogue",
+				6:"Épilogue",
 				7:"Sources"}
 
 		self.clear_all()
