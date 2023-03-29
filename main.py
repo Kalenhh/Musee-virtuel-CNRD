@@ -6,10 +6,10 @@ from direct.task import Task
 from direct.actor.Actor import Actor
 from direct.interval.IntervalGlobal import Sequence
 from direct.gui.DirectGui import *
-from panda3d.core import VBase4 , NodePath , TextNode , WindowProperties
+from panda3d.core import VBase4 , NodePath , TextNode , WindowProperties , loadPrcFileData
 
 from direct.gui.OnscreenText import OnscreenText
-
+loadPrcFileData("", "window-title Musée CNRD")
 import struct
 import imghdr
 
@@ -50,6 +50,8 @@ def get_image_size(fname):
 
 
 
+
+
 class Myapp(ShowBase) :
 
 	def __init__(self) :
@@ -67,6 +69,8 @@ class Myapp(ShowBase) :
 
 		self.music_time = 0
 
+		
+		
 
 
 
@@ -79,10 +83,10 @@ class Myapp(ShowBase) :
 		#print(self.padding,self.k,self.c)
 
 		delta = 0
-		if is_down('m') and self.texte_liste['end_balise']['pos'][1] <= 0 : #descendre
-			delta = 0.04
-		elif is_down('p') and self.texte_liste['start_balise']['pos'][1] >= 0 : #monter
-			delta = -0.04
+		if is_down('arrow_down') and self.texte_liste['end_balise']['pos'][1] <= 0 : #descendre
+			delta = 0.02
+		elif is_down('arrow_up') and self.texte_liste['start_balise']['pos'][1] >= 0 : #monter
+			delta = -0.02
 
 
 		if delta != 0 :
@@ -147,7 +151,7 @@ class Myapp(ShowBase) :
 
 
 		# WIDGET GUI PART ------------------------------------------------------------------------------------
-		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.825,2),frameColor=(206/255,6/255,6/255,1))  # 206,6,6,255
+		self.widget['barre'] = DirectFrame(frameSize=(-5,5,0.825,2),frameColor=(161/255,32/255,28/255,1))  # 206,6,6,255
 		self.widget['go_back_button'] = DirectButton(text="Retour",command=self.load_menu,scale=0.1,pos=(-1,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
 
@@ -278,7 +282,7 @@ class Myapp(ShowBase) :
 									scale,
 									-next_ligne_pos)
 
-					self.texte_liste[str(para_nbr)]['bg'] = (69/255,148/255,138/255,1)
+					self.texte_liste[str(para_nbr)]['bg'] = (65/255,185/255,188/255,1)
 
 					next_ligne_pos += self.padding*nbr_ligne + scale*self.c*nbr_ligne
 
@@ -335,6 +339,7 @@ class Myapp(ShowBase) :
 		"""
 
 		framme = (0,0,0,0)
+		shad = (0,0,0,0)
 		if scale > 1 :
 			pos = TextNode.ACenter
 			posx = 0
@@ -344,6 +349,7 @@ class Myapp(ShowBase) :
 
 		if scale == 2 :
 			framme = (0,0,0,255)
+			shad = (0,0,0,1)
 
 		if scale == 3 :
 			scale = 7
@@ -353,7 +359,8 @@ class Myapp(ShowBase) :
 																position) ,
 														scale = 0.05+scale/100 ,
 														align = pos ,
-														frame=framme)
+														frame=framme,
+														shadow=shad)
 
 
 	def partitionner(self,string) :
@@ -402,9 +409,9 @@ class Myapp(ShowBase) :
 
 		
 		
-		self.texte_liste['ecolier'] = OnscreenImage( image = "images/ecolier2.png",scale=0.7,pos=(1.1,0,-0.35))
-		self.widget['chapitre_button'] = 	DirectButton(image="images/cartable3.png",command=self.load_chapter_menu,
-										scale=(0.5,1,0.3),pos=(0,0,-0.2),relief="ridge")
+		self.texte_liste['ecolier'] = OnscreenImage( image = "images/ecolier.png",scale=0.7,pos=(1.1,0,-0.35))
+		self.widget['chapitre_button'] = 	DirectButton(image="images/cartable.png",command=self.load_chapter_menu,
+										scale=(0.4,1,0.25),pos=(0,0,-0.2),relief="ridge")
 		
 		self.widget['exit_button'] = 		DirectButton(text="Quitter",command=self.close_app,
 										scale=0.1,pos=(0,0,-0.7),frameSize=(-2.2,2.2,-0.5,0.9))#left right bottom top
@@ -419,7 +426,7 @@ class Myapp(ShowBase) :
 
 		texte = "VERDIER Olivier\nBAUDOIN Mathieu\nBESSOT Thibault\nBOULEZ Jeanne\nCHARROY Stanislas\nDECAESTEKER Maximilien\nEHLING Kylian\nGRECO Lucas\nHEINDEL Clément\nINGARGIOLA Andréa\nLINEL Mahiné\nPIERRON Lilou\nRADET Gaëtan\nVUILLAUME Yann"
 		self.texte_liste['texte_pres'] = OnscreenText(	text = texte ,
-														pos = (	-1.25 ,
+														pos = (	-1.3 ,
 																0) ,
 														scale = 0.05+2/100 ,
 														align = TextNode.ALeft)

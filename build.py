@@ -7,6 +7,7 @@ setup(
             'gui_apps': {
                 'musee': 'main.py',
             },
+            "icons" : {"musee":["images/icone_256.png"]},
 
         
 

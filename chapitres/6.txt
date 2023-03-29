@@ -12,14 +12,14 @@
 
 <i=1>IMAGE1<i>
 
-<1> La carte de France des enfants juifs déportés. HTTP://TETRADE.HUMA-NUM.FR/TETRADEMAP_ENFANT_FRANCE/ <1>
+<1> La carte de France des enfants juifs déportés. HTTP://TETRADE.HUMA-NUM.FRµ/TETRADEMAP_ENFANT_FRANCE/ <1>
 
 
 <1>Il suffit de passer le curseur sur chaque cercle : une bulle indique le nombre d'enfants juifs qui furent arrêtés sur place, puis déportés. Un clic, et voici leurs noms, leur âge. Au 56, cours Lafayette, à Lyon : Jacques Sciandra, 17 ans. Un peu plus loin, au numéro 89: Dario Sarfati, 1 an seulement. Et cela pour les 11458 enfants juifs arrêtés en France entre juillet 1942 et août 1944 et envoyés vers les camps de la mort. Cette carte est accessible à tous.<1>
 
 
 <i=2>IMAGE2<i>
-<1> La carte des déportations d'enfants juifs uniquement pour Paris. HTTP://TETRADE.HUMA-NUM.FR <1>
+<1> La carte des déportations d'enfants juifs uniquement pour Paris. µHTTP://TETRADE.HUMA-NUM.FR <1>
 
 
 <1>Mais les témoins aussi ont voulu expliquer ce qui s’est passé.<1>

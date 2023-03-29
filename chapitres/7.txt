@@ -1,7 +1,7 @@
 <3>SOURCES<3>
 
 
-<1>Archives départementales de la Meurthe-et-Moselle<1>
+<n>Archives départementales de la Meurthe-et-Moselle<n>
 
 <1>Sortie du Coffre-fort: étoile jaune <1>
 
@@ -14,7 +14,7 @@
 <1>2496W 191 <1>
 
 <1> <1>
-<1>Livres<1>
+<n>Livres<n>
 
 <1>Robert Paxton, La France de Vichy, 1973, rééd. 1997, Seil, Point Histoire <1>
 
@@ -47,13 +47,13 @@
 <1>Jean-Jacques DUPAUX, Histoire de l'éducation physique : Vichy 1940-1944 [mise en ligne le 7 juillet 2016] [enregistrement vidéo] in Projet Demenÿ. Disponible sur http://projet-demeny.univ-fcomte.fr/index.php?page=1940_1944  <1>
 
 <1> <1>
-<1>Revues<1>
+<n>Revues<n>
 
 <1>BT n°1122 Novembre 2000, Expulsée de Lorraine 1940-1945 (Auteurs : Bernard Hamon avec la participation de Hélène Morin-Hamon, Denis Morin, Anne-Marie Dufour et le Chantier BT de l'ICEM-Pédagogie Freinet) <1>
 
-<1>Les chemins de la mémoire : <1>
+<1>Les chemins de la mémoire: <1>
 
-<1>Novembre 2010 n°210, Dossier : le 11 novembre 1940 un rassemblement contre l’occupant <1>
+<1>Novembre 2010 n°210, Dossier: le 11 novembre 1940 un rassemblement contre l’occupant <1>
 
 <1>Mai 2010 N°205 <1>
 
@@ -66,11 +66,11 @@
 <1>Le Déporté N 605, octobre 2020 et Le Déporté, N°604, juillet 2020 <1>
 
 <1> <1>
-<1>Internet<1>
+<n>Internet<n>
 
 <1>Ouvrage numérique khâgneux:https://books.openedition.org/septentrion/7222 <1>
 
-<1>Témoignages audios du site: MÉMOIRES de RÉSISTANCES, UN SITE DU DÉPARTEMENT DE LA DORDOGNE, https://memoires-resistances.dordogne.fr/temoignages-audio/1015-extraits-sonores/65-l-ecole-et-la-resistance.html <1>
+<1>Témoignages audios du site: MÉMOIRES de RÉSISTANCES, UN SITE DU DÉPARTEMENT DE LA DORDOGNE, https://memoires-resistances.dordogne.fr/temoignages-audioµ/1015-extraits-sonores/65-l-ecole-et-la-resistance.html <1>
 
 <1>https://www.fondationshoah.org/la-fondation/des-ressources-sur-les-enfants-caches <1>
 
@@ -84,19 +84,19 @@
 
 <1>75 ans après la déportation des enfants d'Izieu, "la dette de mémoire" de France 3 Auvergne-Rhône-Alpes <1>
 
-<1>L' expulsion des enfants juifs de l'ecole en Algerie sous Vichy de jchaimk <1>
+<1>L'expulsion des enfants juifs de l'ecole en Algerie sous Vichy de jchaimk <1>
 
 <1>Site internet:https://x-resistance.polytechnique.org/index.html site sur la résistance de l’école polytechnique <1>
 
 <1>Le site du CNRD 2022 – 2023 http://cadetfrancelibre.fr/index.php/plus/cnrd-2022-2023/ <1>
 
-<1>Une rentrée des classes particulière en 1939 du site https://www.retronews.fr/conflits-et-relations-internationales/long-format/2018/03/13/une-rentree-des-classes-particuliere-en <1>
+<1>Une rentrée des classes particulière en 1939 du site https://www.retronews.frµ/conflits-et-relations-internationales/long-format/2018/03/13/une-rentree-desµ-classes-particuliere-en <1>
 
 <1>https://histoire-geographie.ac-dijon.fr/spip.php?article1045 <1>
 
 <1>https://www.lemondedesados.fr/denise-lado-qui-resista-face-aux-nazis/ <1>
 
-<1>https://brignoles.maville.com/actu/actudet_-70e-des-enfants-dans-la-resistance-p.chapleau-_53511-2570834_actu.Htm <1>
+<1>https://brignoles.maville.com/actu/actudet_-70e-des-enfants-dans-la-resistanceµ-p.chapleau-_53511-2570834_actu.Htm <1>
 
 <1>https://www.cairn.info/revue-empan-2005-1-page-20.htm <1>
 
@@ -106,21 +106,21 @@
 
 <1>https://www.museedelaresistanceenligne.org/expo.php?expo=136&theme=273 <1>
 
-<1>https://ville-badonviller.fr/hommes-et-femmes-celebres-de-badonviiler/lieutenant-jacques-lemoine/ <1>
+<1>https://ville-badonviller.fr/hommes-et-femmes-celebres-de-badonviilerµ/lieutenant-jacques-lemoine/ <1>
 
 <1>https://histoire-geographie.ac-dijon.fr/spip.php?article1045 <1>
 
 <1>http://www.lalande2.com/ <1>
 
-<1>https://brignoles.maville.com/actu/actudet_-70e-des-enfants-dans-la-resistance-p.chapleau-_53511-2570834_actu.html <1>
+<1>https://brignoles.maville.com/actu/actudet_-70e-des-enfants-dans-laµ-resistance-p.chapleau-_53511-2570834_actu.html <1>
 
-<1>https://savoirsdhistoire.wordpress.com/2019/01/25/jeunesse-sous-loccupation-2-2-la-resistance-contre-attaque/ <1>
+<1>https://savoirsdhistoire.wordpress.com/2019/01/25/jeunesse-sous-loccupation-2-2µ-la-resistance-contre-attaque/ <1>
 
 <1>https://www.la-croix.com/France/Le-jour-choisi-Resistance-2019-06-18-1201029562 <1>
 
 <1>https://fr.wikipedia.org/wiki/La_Main_noire_(France) <1>
 
-<1>https://clio-cr.clionautes.org/une-certaine-idee-de-la-resistance-defense-de-la-france-1940-1949.html <1>
+<1>https://clio-cr.clionautes.org/une-certaine-idee-de-la-resistance-defense-de-la-franceµ-1940-1949.html <1>
 
 <1>https://www.cheminsdememoire.gouv.fr/fr/qui-etaient-les-francais-libres <1>
 
@@ -136,14 +136,14 @@
 
 <1>https://www.france-libre.net/les-cadets-de-la-france-libre/ <1>
 
-<1>https://www.if-saint-etienne.fr/politique-societe/jean-gilbert-le-dernier-survivant-des-forces-francaises-libres-habite-le-coteau <1>
+<1>https://www.if-saint-etienne.fr/politique-societe/jean-gilbert-le-dernier-survivant-desµ-forces-francaises-libres-habite-le-coteau <1>
 
-<1>http://sv69.e-monsite.com/pages/histoire/l-ecole-militaire-des-cadets-de-la-france-libre.html <1>
+<1>http://sv69.e-monsite.com/pages/histoire/l-ecole-militaire-des-cadets-de-laµ-france-libre.html <1>
 
-<1>https://www.alarecherchedupasse-halluin.net/index.php?option=com_content&view=article&id=4652:londres-en-juillet-1940-les-futures-forces-francaises-libres&catid=12&Itemid=221&lang=fr <1>
+<1>https://www.alarecherchedupasse-halluin.net/index.php?option=com_content&µview=article&id=4652:londres-en-juillet-1940-les-futures-forces-francaises-libres&µcatid=12&Itemid=221&lang=fr <1>
 
 <1> <1>
-<1>Télévision/documentaires <1>
+<n>Télévision/documentaires <n>
 
 <1>Documentaire, L’histoire d’une nation, saison 1 et 2, France 2 <1>
 
