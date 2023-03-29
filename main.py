@@ -90,7 +90,6 @@ class Myapp(ShowBase) :
 
 
 		if delta != 0 :
-			print("mouv")
 			for i in self.texte_liste :
 				
 				curr = self.texte_liste[i]
@@ -142,7 +141,8 @@ class Myapp(ShowBase) :
 		self.clear_all()
 		self.taskMgr.add(self.loop,'loop')
 
-		self.widget["bg"] = DirectFrame(image="images/bg.png",scale=2)
+		if chap_id < 7 :
+			self.widget["bg"] = DirectFrame(image="images/bg.png",scale=2)
 
 		with  open("chapitres/"+str(chap_id)+".txt",'r',encoding='utf-8') as chap :
 			texte = chap.read()
@@ -161,7 +161,7 @@ class Myapp(ShowBase) :
 
 		nom_musique = {1:"La rengaine de la nuit",2:"Maréchal nous voilà !",3:"Maréchal nous voilà !",4:"Le chant des partisans",5:"Le chant de la 2ème DB",6:"La Marseillaise "}
 
-		if chap_id < 7 :
+		if chap_id < 6 :
 			self.widget["playsound_button"] = DirectButton(text="musique",command=self.musique,
 															scale=0.1,pos=(0.8,0,0.9),frameSize=(-2,2,-0.5,0.9))
 
@@ -417,19 +417,22 @@ class Myapp(ShowBase) :
 										scale=0.1,pos=(0,0,-0.7),frameSize=(-2.2,2.2,-0.5,0.9))#left right bottom top
 
 		
+		fontt = loader.loadFont('Jarman-BL88.ttf')
 
 		texte = 'Lycée Jacques Marie Boutet de Monvel\nDes jours sombres aux lendemains\nde la Libération (1940-1945)'
 		self.texte_liste['titre'] = OnscreenText(		text = texte ,
 														pos = (	0 ,
 																0.7) ,
-														scale = 0.05+10/100)
+														scale = 0.05+10/100,
+														font=fontt)
 
-		texte = "VERDIER Olivier\nBAUDOIN Mathieu\nBESSOT Thibault\nBOULEZ Jeanne\nCHARROY Stanislas\nDECAESTEKER Maximilien\nEHLING Kylian\nGRECO Lucas\nHEINDEL Clément\nINGARGIOLA Andréa\nLINEL Mahiné\nPIERRON Lilou\nRADET Gaëtan\nVUILLAUME Yann"
+		texte = "BAUDOIN Mathieu\nBESSOT Thibault\nBOULEZ Jeanne\nCHARROY Stanislas\nDECAESTEKER Maximilien\nEHLING Kylian\nGRECO Lucas\nHEINDEL Clément\nINGARGIOLA Andréa\nLINEL Mahiné\nPIERRON Lilou\nRADET Gaëtan\nVUILLAUME Yann"
 		self.texte_liste['texte_pres'] = OnscreenText(	text = texte ,
 														pos = (	-1.3 ,
 																0) ,
 														scale = 0.05+2/100 ,
 														align = TextNode.ALeft)
+
 
 	
 
