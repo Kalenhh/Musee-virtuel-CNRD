@@ -7,14 +7,15 @@ setup(
             'gui_apps': {
                 'musee': 'main.py',
             },
-            "icons" : {"musee":["images/icone_256.png"]},
+            "icons" : {"musee":["images/croix.jpg"]},
 
         
 
             'include_patterns': [
                 '**/*.png',
                 '**/*.txt',
-                '**/*.wav'
+                '**/*.wav',
+                '**/*.ttf'
             ],
 
             'plugins': [

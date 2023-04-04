@@ -69,11 +69,6 @@ class Myapp(ShowBase) :
 
 		self.music_time = 0
 
-		
-		
-
-
-
 
 	def loop(self,task) :
 
@@ -184,7 +179,6 @@ class Myapp(ShowBase) :
 		elif self.mySound.getVolume() == 1 and delta > 0 :
 			return None
 		self.mySound.setVolume(round(self.mySound.getVolume()+delta,1))
-		print(self.mySound.getVolume())
 
 	def musique(self) :
 
@@ -417,24 +411,14 @@ class Myapp(ShowBase) :
 										scale=0.1,pos=(0,0,-0.7),frameSize=(-2.2,2.2,-0.5,0.9))#left right bottom top
 
 		
-		fontt = loader.loadFont('Jarman-BL88.ttf')
+		fontt = loader.loadFont('sound/Jarman-BL88.ttf')
 
-		texte = 'Lycée Jacques Marie Boutet de Monvel\nDes jours sombres aux lendemains\nde la Libération (1940-1945)'
+		texte = 'Des jours sombres aux lendemains\nde la Libération'
 		self.texte_liste['titre'] = OnscreenText(		text = texte ,
 														pos = (	0 ,
 																0.7) ,
 														scale = 0.05+10/100,
 														font=fontt)
-
-		texte = "BAUDOIN Mathieu\nBESSOT Thibault\nBOULEZ Jeanne\nCHARROY Stanislas\nDECAESTEKER Maximilien\nEHLING Kylian\nGRECO Lucas\nHEINDEL Clément\nINGARGIOLA Andréa\nLINEL Mahiné\nPIERRON Lilou\nRADET Gaëtan\nVUILLAUME Yann"
-		self.texte_liste['texte_pres'] = OnscreenText(	text = texte ,
-														pos = (	-1.3 ,
-																0) ,
-														scale = 0.05+2/100 ,
-														align = TextNode.ALeft)
-
-
-	
 
 	def load_chapter_menu(self) :
 		"""
